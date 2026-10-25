@@ -237,8 +237,9 @@ footer { padding: 30px 0 40px; color: var(--muted); font-size: 13px; display: fl
 </div>
 <div class="btns">
 <a class="btn primary" id="dlWin" href="#indir"><svg><use href="#i-win"/></svg>Windows<small>.exe</small></a>
-<a class="btn" id="dlLin" href="#indir"><svg><use href="#i-linux"/></svg>Linux<small>.tar.gz</small></a>
+<a class="btn" id="dlMsi" href="#indir"><svg><use href="#i-win"/></svg>Windows<small>.msi</small></a>
 <a class="btn" id="dlMac" href="#indir"><svg><use href="#i-mac"/></svg>macOS<small>.zip</small></a>
+<a class="btn" id="dlLin" href="#indir"><svg><use href="#i-linux"/></svg>Linux<small>.tar.gz</small></a>
 </div>
 </div>
 </div>
@@ -590,7 +591,7 @@ document.querySelectorAll('[data-ip]').forEach(el => el.placeholder = T(el.datas
 document.getElementById('cards').innerHTML = F.map(f => `<article class="card" id="f-${f.id}"><div class="ic"><svg><use href="#${f.ic}"/></svg></div><h3>${T(f.t)}</h3><p>${T(f.d)}</p>${f.ex ? `<div class="ex">${f.ex[LANG]}</div>` : ''}</article>`).join('');
 document.getElementById('types').innerHTML = TYPES.map(([n, c, xs]) => `<div class="tg" style="--tc:${c}"><b>${T(n)}</b>${xs.map(x => `<span>.${x}</span>`).join('')}</div>`).join('');
 document.getElementById('ver').textContent = VER;
-document.getElementById('dlWin').href = DL + 'digsearch-' + VER + '.exe'; document.getElementById('dlLin').href = DL + 'digsearch-' + VER + '-linux-amd64.tar.gz'; document.getElementById('dlMac').href = DL + 'digsearch-' + VER + '-macos-arm64.zip';
+document.getElementById('dlWin').href = DL + 'digsearch-' + VER + '.exe'; document.getElementById('dlMsi').href = DL + 'digsearch-' + VER + '-x64.msi'; document.getElementById('dlLin').href = DL + 'digsearch-' + VER + '-linux-amd64.tar.gz'; document.getElementById('dlMac').href = DL + 'digsearch-' + VER + '-macos-arm64.zip';
 drawShot(); drawSteps(); drawTyping();
 if (find.value) doFind();
 }
