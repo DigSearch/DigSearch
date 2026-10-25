@@ -1,14 +1,14 @@
-<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@f3c4419caf21/assets/wordmark-dark.png"><img src="https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@f3c4419caf21/assets/wordmark-light.png" width="300" alt="DigSearch"></picture></p>
+<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@e36fd4012ff6/assets/wordmark-dark.png"><img src="https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@e36fd4012ff6/assets/wordmark-light.png" width="300" alt="DigSearch"></picture></p>
 
 <p align="center"><a href="../../README.md">Türkçe</a> &nbsp;·&nbsp; <b>English</b> &nbsp;·&nbsp; <a href="../../docs/de/README.md">Deutsch</a> &nbsp;·&nbsp; <a href="../../docs/zh/README.md">中文</a> &nbsp;·&nbsp; <a href="../../docs/ru/README.md">Русский</a></p>
 
 <p align="center">Excel, Word, PowerPoint, PDF, scanned documents and text files: every line inside thousands of files is found as you type. Runs entirely on your computer.</p>
 
-<p align="center"><img src="https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@f3c4419caf21/assets/screens/en/search.svg" width="840" alt="Search inside files"></p>
+<p align="center"><img src="https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@e36fd4012ff6/assets/screens/en/search.svg" width="840" alt="Search inside files"></p>
 
 <p align="center">✓ One file, no installer &nbsp;·&nbsp; ✓ No internet, data stays with you &nbsp;·&nbsp; ✓ Windows · Linux · macOS</p>
 
-<p align="center"><a href="https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0.exe"><b>Windows</b></a> <sub>.exe</sub> &nbsp;|&nbsp; <a href="https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-macos-arm64.zip"><b>macOS</b></a> <sub>Apple Silicon</sub> &nbsp;|&nbsp; <a href="https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-macos-amd64.zip"><b>macOS</b></a> <sub>Intel</sub> &nbsp;|&nbsp; <a href="https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-linux-amd64.tar.gz"><b>Linux</b></a> <sub>amd64</sub> &nbsp;|&nbsp; <a href="https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-linux-arm64.tar.gz"><b>Linux</b></a> <sub>arm64</sub></p>
+<p align="center"><a href="https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0.exe"><b>Windows</b></a> <sub>.exe</sub> &nbsp;|&nbsp; <a href="https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-x64.msi"><b>Windows</b></a> <sub>.msi</sub> &nbsp;|&nbsp; <a href="https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-macos-arm64.zip"><b>macOS</b></a> <sub>Apple Silicon</sub> &nbsp;|&nbsp; <a href="https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-macos-amd64.zip"><b>macOS</b></a> <sub>Intel</sub> &nbsp;|&nbsp; <a href="https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-linux-amd64.tar.gz"><b>Linux</b></a> <sub>amd64</sub></p>
 
 | **2,500** | **14 s** | **4–50 ms** | **30+** | **5** |
 |:---:|:---:|:---:|:---:|:---:|
@@ -22,7 +22,7 @@
 
 ### Every letter narrows it down
 
-![Every letter narrows it down](https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@f3c4419caf21/assets/screens/en/typing.svg)
+![Every letter narrows it down](https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@e36fd4012ff6/assets/screens/en/typing.svg)
 
 _The count narrows as you type: every letter cuts the candidate blocks down._
 
@@ -44,7 +44,7 @@ One button searches names only: a single letter is enough. * stands for one char
 
 > report_202* → report_202**5**.xlsx · report_202**6**.docx
 
-![Search in file and folder names](https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@f3c4419caf21/assets/screens/en/names.svg)
+![Search in file and folder names](https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@e36fd4012ff6/assets/screens/en/names.svg)
 
 ### Relaxed by default, exact when you want
 
@@ -103,10 +103,10 @@ Version 1.0.0 · One file: download and run. The index and settings stay on this
 **Windows** — `digsearch-1.0.0.exe · ~59 MB`
 
 - Windows 10 / 11, 64 bit
-- Exe: no installer, no administrator rights; an MSI installer or MSIX package if you prefer
+- Exe: no installer, no administrator rights; an MSI installer if you prefer
 - PDF reading and OCR built in
 
-[⤓ Download for Windows](https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0.exe) &nbsp;·&nbsp; [⤓ MSI](https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-x64.msi) &nbsp;·&nbsp; [⤓ MSIX](https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-x64.msix)
+[⤓ Download for Windows](https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0.exe) &nbsp;·&nbsp; [⤓ MSI](https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-x64.msi)
 
 **macOS** — `digsearch-1.0.0-macos-arm64.zip · digsearch-1.0.0-macos-amd64.zip`
 
@@ -116,13 +116,13 @@ Version 1.0.0 · One file: download and run. The index and settings stay on this
 
 [⤓ Apple Silicon](https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-macos-arm64.zip) &nbsp;·&nbsp; [⤓ Intel](https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-macos-amd64.zip)
 
-**Linux** — `digsearch-1.0.0-linux-amd64.tar.gz · digsearch-1.0.0-linux-arm64.tar.gz`
+**Linux** — `digsearch-1.0.0-linux-amd64.tar.gz · ~12 MB`
 
-- x86-64 or arm64, a single binary; kur.sh adds it to the menu
+- x86-64, a single binary; kur.sh adds it to the menu
 - Chrome, Chromium, Edge or Brave for the window; otherwise your browser
 - Uses mutool for PDF and tesseract for OCR when installed
 
-[⤓ Linux amd64](https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-linux-amd64.tar.gz) &nbsp;·&nbsp; [⤓ Linux arm64](https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-linux-arm64.tar.gz)
+[⤓ Linux amd64](https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-linux-amd64.tar.gz)
 
 ---
 

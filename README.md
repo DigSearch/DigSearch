@@ -1,14 +1,14 @@
-<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@f3c4419caf21/assets/wordmark-dark.png"><img src="https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@f3c4419caf21/assets/wordmark-light.png" width="300" alt="DigSearch"></picture></p>
+<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@e36fd4012ff6/assets/wordmark-dark.png"><img src="https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@e36fd4012ff6/assets/wordmark-light.png" width="300" alt="DigSearch"></picture></p>
 
 <p align="center"><b>Türkçe</b> &nbsp;·&nbsp; <a href="docs/en/README.md">English</a> &nbsp;·&nbsp; <a href="docs/de/README.md">Deutsch</a> &nbsp;·&nbsp; <a href="docs/zh/README.md">中文</a> &nbsp;·&nbsp; <a href="docs/ru/README.md">Русский</a></p>
 
 <p align="center">Excel, Word, PowerPoint, PDF, taranmış belgeler ve metin dosyaları: binlerce dosyanın içindeki her satır siz yazarken bulunur. Tamamen bilgisayarınızda çalışır.</p>
 
-<p align="center"><img src="https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@f3c4419caf21/assets/screens/tr/search.svg" width="840" alt="Dosya içeriğinde ara"></p>
+<p align="center"><img src="https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@e36fd4012ff6/assets/screens/tr/search.svg" width="840" alt="Dosya içeriğinde ara"></p>
 
 <p align="center">✓ Tek dosya, kurulum yok &nbsp;·&nbsp; ✓ İnternete bağlanmaz, veri bilgisayarınızda &nbsp;·&nbsp; ✓ Windows · Linux · macOS</p>
 
-<p align="center"><a href="https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0.exe"><b>Windows</b></a> <sub>.exe</sub> &nbsp;|&nbsp; <a href="https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-macos-arm64.zip"><b>macOS</b></a> <sub>Apple Silicon</sub> &nbsp;|&nbsp; <a href="https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-macos-amd64.zip"><b>macOS</b></a> <sub>Intel</sub> &nbsp;|&nbsp; <a href="https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-linux-amd64.tar.gz"><b>Linux</b></a> <sub>amd64</sub> &nbsp;|&nbsp; <a href="https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-linux-arm64.tar.gz"><b>Linux</b></a> <sub>arm64</sub></p>
+<p align="center"><a href="https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0.exe"><b>Windows</b></a> <sub>.exe</sub> &nbsp;|&nbsp; <a href="https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-x64.msi"><b>Windows</b></a> <sub>.msi</sub> &nbsp;|&nbsp; <a href="https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-macos-arm64.zip"><b>macOS</b></a> <sub>Apple Silicon</sub> &nbsp;|&nbsp; <a href="https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-macos-amd64.zip"><b>macOS</b></a> <sub>Intel</sub> &nbsp;|&nbsp; <a href="https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-linux-amd64.tar.gz"><b>Linux</b></a> <sub>amd64</sub></p>
 
 | **2.500** | **14 sn** | **4–50 ms** | **30+** | **5** |
 |:---:|:---:|:---:|:---:|:---:|
@@ -22,7 +22,7 @@
 
 ### Her harf süzer
 
-![Her harf süzer](https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@f3c4419caf21/assets/screens/tr/typing.svg)
+![Her harf süzer](https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@e36fd4012ff6/assets/screens/tr/typing.svg)
 
 _Yazdıkça eşleşme sayısı daralır: her harf aday blokları azaltır._
 
@@ -44,7 +44,7 @@ Tek düğmeyle yalnız adlarda arayın: tek harf bile yeter. * bir karakterin ye
 
 > rapor_202* → rapor_202**5**.xlsx · rapor_202**6**.docx
 
-![Dosya ve klasör adında arama](https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@f3c4419caf21/assets/screens/tr/names.svg)
+![Dosya ve klasör adında arama](https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@e36fd4012ff6/assets/screens/tr/names.svg)
 
 ### Harf duyarsız, isterseniz hassas
 
@@ -103,10 +103,10 @@ Sürüm 1.0.0 · Tek dosya: indirin ve çalıştırın. İndeks ve ayarlar yaln�
 **Windows** — `digsearch-1.0.0.exe · ~59 MB`
 
 - Windows 10 / 11, 64 bit
-- Exe: kurulum ve yönetici hakkı gerekmez; isteyene MSI kurulumu ya da MSIX paketi
+- Exe: kurulum ve yönetici hakkı gerekmez; isteyene MSI kurulumu
 - PDF okuma ve OCR gömülü
 
-[⤓ Windows için indir](https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0.exe) &nbsp;·&nbsp; [⤓ MSI](https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-x64.msi) &nbsp;·&nbsp; [⤓ MSIX](https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-x64.msix)
+[⤓ Windows için indir](https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0.exe) &nbsp;·&nbsp; [⤓ MSI](https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-x64.msi)
 
 **macOS** — `digsearch-1.0.0-macos-arm64.zip · digsearch-1.0.0-macos-amd64.zip`
 
@@ -116,13 +116,13 @@ Sürüm 1.0.0 · Tek dosya: indirin ve çalıştırın. İndeks ve ayarlar yaln�
 
 [⤓ Apple Silicon](https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-macos-arm64.zip) &nbsp;·&nbsp; [⤓ Intel](https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-macos-amd64.zip)
 
-**Linux** — `digsearch-1.0.0-linux-amd64.tar.gz · digsearch-1.0.0-linux-arm64.tar.gz`
+**Linux** — `digsearch-1.0.0-linux-amd64.tar.gz · ~12 MB`
 
-- x86-64 ya da arm64, tek ikili; kur.sh menüye ekler
+- x86-64, tek ikili; kur.sh menüye ekler
 - Pencere için Chrome, Chromium, Edge ya da Brave; yoksa tarayıcıda açılır
 - PDF için mutool, OCR için tesseract kuruluysa kullanılır
 
-[⤓ Linux amd64](https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-linux-amd64.tar.gz) &nbsp;·&nbsp; [⤓ Linux arm64](https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-linux-arm64.tar.gz)
+[⤓ Linux amd64](https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-linux-amd64.tar.gz)
 
 ---
 
