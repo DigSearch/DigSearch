@@ -1,14 +1,14 @@
-<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@51f6f4abe666/assets/wordmark-dark.png"><img src="https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@51f6f4abe666/assets/wordmark-light.png" width="300" alt="DigSearch"></picture></p>
+<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@f3c4419caf21/assets/wordmark-dark.png"><img src="https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@f3c4419caf21/assets/wordmark-light.png" width="300" alt="DigSearch"></picture></p>
 
 <p align="center"><a href="../../README.md">Türkçe</a> &nbsp;·&nbsp; <a href="../../docs/en/README.md">English</a> &nbsp;·&nbsp; <a href="../../docs/de/README.md">Deutsch</a> &nbsp;·&nbsp; <b>中文</b> &nbsp;·&nbsp; <a href="../../docs/ru/README.md">Русский</a></p>
 
 <p align="center">Excel、Word、PowerPoint、PDF、扫描文档和文本文件：成千上万文件中的每一行，边输入边找到。完全在您的电脑上运行。</p>
 
-<p align="center"><img src="https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@51f6f4abe666/assets/screens/zh/search.svg" width="840" alt="在文件内容中搜索"></p>
+<p align="center"><img src="https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@f3c4419caf21/assets/screens/zh/search.svg" width="840" alt="在文件内容中搜索"></p>
 
 <p align="center">✓ 单个文件，无需安装 &nbsp;·&nbsp; ✓ 不联网，数据留在本机 &nbsp;·&nbsp; ✓ Windows · Linux · macOS</p>
 
-<p align="center"><a href="https://digsearch.org/downloads/digsearch-4.42.0.exe"><b>Windows</b></a> <sub>.exe</sub> &nbsp;|&nbsp; <a href="https://digsearch.org/downloads/digsearch-4.42.0-macos-arm64.zip"><b>macOS</b></a> <sub>Apple Silicon</sub> &nbsp;|&nbsp; <a href="https://digsearch.org/downloads/digsearch-4.42.0-macos-amd64.zip"><b>macOS</b></a> <sub>Intel</sub> &nbsp;|&nbsp; <a href="https://digsearch.org/downloads/digsearch-4.42.0-linux-amd64.tar.gz"><b>Linux</b></a> <sub>amd64</sub> &nbsp;|&nbsp; <a href="https://digsearch.org/downloads/digsearch-4.42.0-linux-arm64.tar.gz"><b>Linux</b></a> <sub>arm64</sub></p>
+<p align="center"><a href="https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0.exe"><b>Windows</b></a> <sub>.exe</sub> &nbsp;|&nbsp; <a href="https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-macos-arm64.zip"><b>macOS</b></a> <sub>Apple Silicon</sub> &nbsp;|&nbsp; <a href="https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-macos-amd64.zip"><b>macOS</b></a> <sub>Intel</sub> &nbsp;|&nbsp; <a href="https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-linux-amd64.tar.gz"><b>Linux</b></a> <sub>amd64</sub> &nbsp;|&nbsp; <a href="https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-linux-arm64.tar.gz"><b>Linux</b></a> <sub>arm64</sub></p>
 
 | **2,500** | **14 秒** | **4–50 ms** | **30+** | **5** |
 |:---:|:---:|:---:|:---:|:---:|
@@ -22,7 +22,7 @@
 
 ### 每个字符都在缩小范围
 
-![每个字符都在缩小范围](https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@51f6f4abe666/assets/screens/zh/typing.svg)
+![每个字符都在缩小范围](https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@f3c4419caf21/assets/screens/zh/typing.svg)
 
 _输入时匹配数逐步缩小：每个字符都减少候选块。_
 
@@ -44,7 +44,7 @@ Excel 单元格、Word 段落和表格、PowerPoint 幻灯片、PDF 页面、文
 
 > 报告_202* → 报告_202**5**.xlsx · 报告_202**6**.docx
 
-![按文件和文件夹名搜索](https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@51f6f4abe666/assets/screens/zh/names.svg)
+![按文件和文件夹名搜索](https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@f3c4419caf21/assets/screens/zh/names.svg)
 
 ### 默认宽松，需要时精确
 
@@ -98,31 +98,31 @@ Türkçe、English、Deutsch、中文、Русский。/ 聚焦搜索框，↑
 
 ## 下载
 
-版本 4.42.0 · 单个文件：下载即可运行。索引和设置只保存在本机；卸载时全部删除。
+版本 1.0.0 · 单个文件：下载即可运行。索引和设置只保存在本机；卸载时全部删除。
 
-**Windows** — `digsearch-4.42.0.exe · ~59 MB`
+**Windows** — `digsearch-1.0.0.exe · ~59 MB`
 
 - Windows 10 / 11，64 位
-- 无需安装，无需管理员权限
+- Exe：无需安装和管理员权限；也可选 MSI 安装程序或 MSIX 包
 - 内置 PDF 读取和 OCR
 
-[⤓ 下载 Windows 版](https://digsearch.org/downloads/digsearch-4.42.0.exe)
+[⤓ 下载 Windows 版](https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0.exe) &nbsp;·&nbsp; [⤓ MSI](https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-x64.msi) &nbsp;·&nbsp; [⤓ MSIX](https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-x64.msix)
 
-**macOS** — `digsearch-4.42.0-macos-arm64.zip · digsearch-4.42.0-macos-amd64.zip`
+**macOS** — `digsearch-1.0.0-macos-arm64.zip · digsearch-1.0.0-macos-amd64.zip`
 
 - Apple Silicon（M1 及以后）或 Intel
 - 未签名：首次打开请右键 › 打开
 - 已安装时使用 mutool 读取 PDF、tesseract 做 OCR
 
-[⤓ Apple Silicon](https://digsearch.org/downloads/digsearch-4.42.0-macos-arm64.zip) &nbsp;·&nbsp; [⤓ Intel](https://digsearch.org/downloads/digsearch-4.42.0-macos-amd64.zip)
+[⤓ Apple Silicon](https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-macos-arm64.zip) &nbsp;·&nbsp; [⤓ Intel](https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-macos-amd64.zip)
 
-**Linux** — `digsearch-4.42.0-linux-amd64.tar.gz · digsearch-4.42.0-linux-arm64.tar.gz`
+**Linux** — `digsearch-1.0.0-linux-amd64.tar.gz · digsearch-1.0.0-linux-arm64.tar.gz`
 
 - x86-64 或 arm64，单个二进制；kur.sh 添加到菜单
 - 窗口使用 Chrome、Chromium、Edge 或 Brave；否则在浏览器中打开
 - 已安装时使用 mutool 读取 PDF、tesseract 做 OCR
 
-[⤓ Linux amd64](https://digsearch.org/downloads/digsearch-4.42.0-linux-amd64.tar.gz) &nbsp;·&nbsp; [⤓ Linux arm64](https://digsearch.org/downloads/digsearch-4.42.0-linux-arm64.tar.gz)
+[⤓ Linux amd64](https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-linux-amd64.tar.gz) &nbsp;·&nbsp; [⤓ Linux arm64](https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-linux-arm64.tar.gz)
 
 ---
 

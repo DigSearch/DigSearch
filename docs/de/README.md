@@ -1,14 +1,14 @@
-<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@51f6f4abe666/assets/wordmark-dark.png"><img src="https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@51f6f4abe666/assets/wordmark-light.png" width="300" alt="DigSearch"></picture></p>
+<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@f3c4419caf21/assets/wordmark-dark.png"><img src="https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@f3c4419caf21/assets/wordmark-light.png" width="300" alt="DigSearch"></picture></p>
 
 <p align="center"><a href="../../README.md">Türkçe</a> &nbsp;·&nbsp; <a href="../../docs/en/README.md">English</a> &nbsp;·&nbsp; <b>Deutsch</b> &nbsp;·&nbsp; <a href="../../docs/zh/README.md">中文</a> &nbsp;·&nbsp; <a href="../../docs/ru/README.md">Русский</a></p>
 
 <p align="center">Excel, Word, PowerPoint, PDF, gescannte Dokumente und Textdateien: jede Zeile in Tausenden Dateien wird gefunden, während Sie tippen. Läuft vollständig auf Ihrem Rechner.</p>
 
-<p align="center"><img src="https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@51f6f4abe666/assets/screens/de/search.svg" width="840" alt="Im Dateiinhalt suchen"></p>
+<p align="center"><img src="https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@f3c4419caf21/assets/screens/de/search.svg" width="840" alt="Im Dateiinhalt suchen"></p>
 
 <p align="center">✓ Eine Datei, keine Installation &nbsp;·&nbsp; ✓ Kein Internet, Daten bleiben bei Ihnen &nbsp;·&nbsp; ✓ Windows · Linux · macOS</p>
 
-<p align="center"><a href="https://digsearch.org/downloads/digsearch-4.42.0.exe"><b>Windows</b></a> <sub>.exe</sub> &nbsp;|&nbsp; <a href="https://digsearch.org/downloads/digsearch-4.42.0-macos-arm64.zip"><b>macOS</b></a> <sub>Apple Silicon</sub> &nbsp;|&nbsp; <a href="https://digsearch.org/downloads/digsearch-4.42.0-macos-amd64.zip"><b>macOS</b></a> <sub>Intel</sub> &nbsp;|&nbsp; <a href="https://digsearch.org/downloads/digsearch-4.42.0-linux-amd64.tar.gz"><b>Linux</b></a> <sub>amd64</sub> &nbsp;|&nbsp; <a href="https://digsearch.org/downloads/digsearch-4.42.0-linux-arm64.tar.gz"><b>Linux</b></a> <sub>arm64</sub></p>
+<p align="center"><a href="https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0.exe"><b>Windows</b></a> <sub>.exe</sub> &nbsp;|&nbsp; <a href="https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-macos-arm64.zip"><b>macOS</b></a> <sub>Apple Silicon</sub> &nbsp;|&nbsp; <a href="https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-macos-amd64.zip"><b>macOS</b></a> <sub>Intel</sub> &nbsp;|&nbsp; <a href="https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-linux-amd64.tar.gz"><b>Linux</b></a> <sub>amd64</sub> &nbsp;|&nbsp; <a href="https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-linux-arm64.tar.gz"><b>Linux</b></a> <sub>arm64</sub></p>
 
 | **2.500** | **14 s** | **4–50 ms** | **30+** | **5** |
 |:---:|:---:|:---:|:---:|:---:|
@@ -22,7 +22,7 @@
 
 ### Jeder Buchstabe grenzt ein
 
-![Jeder Buchstabe grenzt ein](https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@51f6f4abe666/assets/screens/de/typing.svg)
+![Jeder Buchstabe grenzt ein](https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@f3c4419caf21/assets/screens/de/typing.svg)
 
 _Die Trefferzahl schrumpft beim Tippen: jeder Buchstabe reduziert die Kandidatenblöcke._
 
@@ -44,7 +44,7 @@ Ein Knopf sucht nur in Namen: ein Buchstabe genügt. * steht für ein Zeichen. O
 
 > bericht_202* → bericht_202**5**.xlsx · bericht_202**6**.docx
 
-![Suche in Datei- und Ordnernamen](https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@51f6f4abe666/assets/screens/de/names.svg)
+![Suche in Datei- und Ordnernamen](https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@f3c4419caf21/assets/screens/de/names.svg)
 
 ### Locker voreingestellt, genau bei Bedarf
 
@@ -98,31 +98,31 @@ Eigene Endungen lassen sich ergänzen; sie werden zeilenweise als Text gelesen. 
 
 ## Herunterladen
 
-Version 4.42.0 · Eine Datei: herunterladen und starten. Index und Einstellungen bleiben nur auf diesem Rechner; beim Entfernen ist alles weg.
+Version 1.0.0 · Eine Datei: herunterladen und starten. Index und Einstellungen bleiben nur auf diesem Rechner; beim Entfernen ist alles weg.
 
-**Windows** — `digsearch-4.42.0.exe · ~59 MB`
+**Windows** — `digsearch-1.0.0.exe · ~59 MB`
 
 - Windows 10 / 11, 64 Bit
-- Keine Installation, keine Administratorrechte
+- Exe: keine Installation, keine Administratorrechte; auf Wunsch MSI-Installer oder MSIX-Paket
 - PDF-Lesen und OCR eingebaut
 
-[⤓ Für Windows herunterladen](https://digsearch.org/downloads/digsearch-4.42.0.exe)
+[⤓ Für Windows herunterladen](https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0.exe) &nbsp;·&nbsp; [⤓ MSI](https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-x64.msi) &nbsp;·&nbsp; [⤓ MSIX](https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-x64.msix)
 
-**macOS** — `digsearch-4.42.0-macos-arm64.zip · digsearch-4.42.0-macos-amd64.zip`
+**macOS** — `digsearch-1.0.0-macos-arm64.zip · digsearch-1.0.0-macos-amd64.zip`
 
 - Apple Silicon (M1 und neuer) oder Intel
 - Unsigniert: beim ersten Start Rechtsklick › Öffnen
 - Nutzt mutool für PDF und tesseract für OCR, wenn installiert
 
-[⤓ Apple Silicon](https://digsearch.org/downloads/digsearch-4.42.0-macos-arm64.zip) &nbsp;·&nbsp; [⤓ Intel](https://digsearch.org/downloads/digsearch-4.42.0-macos-amd64.zip)
+[⤓ Apple Silicon](https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-macos-arm64.zip) &nbsp;·&nbsp; [⤓ Intel](https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-macos-amd64.zip)
 
-**Linux** — `digsearch-4.42.0-linux-amd64.tar.gz · digsearch-4.42.0-linux-arm64.tar.gz`
+**Linux** — `digsearch-1.0.0-linux-amd64.tar.gz · digsearch-1.0.0-linux-arm64.tar.gz`
 
 - x86-64 oder arm64, eine Binärdatei; kur.sh trägt sie ins Menü ein
 - Chrome, Chromium, Edge oder Brave für das Fenster; sonst der Browser
 - Nutzt mutool für PDF und tesseract für OCR, wenn installiert
 
-[⤓ Linux amd64](https://digsearch.org/downloads/digsearch-4.42.0-linux-amd64.tar.gz) &nbsp;·&nbsp; [⤓ Linux arm64](https://digsearch.org/downloads/digsearch-4.42.0-linux-arm64.tar.gz)
+[⤓ Linux amd64](https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-linux-amd64.tar.gz) &nbsp;·&nbsp; [⤓ Linux arm64](https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-linux-arm64.tar.gz)
 
 ---
 
