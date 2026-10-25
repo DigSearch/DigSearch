@@ -1,0 +1,634 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DigSearch — Dosya içeriğinde arayın</title>
+<meta name="description" content="Excel, Word, PowerPoint, PDF, taranmış belge ve metin dosyalarının içinde saniyeler içinde arama yapan masaüstü uygulaması. Tamamen bilgisayarınızda çalışır; kurulum ve hesap gerektirmez.">
+<meta name="theme-color" content="#14222F">
+<meta property="og:title" content="DigSearch">
+<meta property="og:description" content="Binlerce dosyanın içinde, yazarken arayın. Excel, Word, PDF, OCR, dosya adı. Tamamen yerel.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 256 256%22%3E%3Cdefs%3E%3ClinearGradient id=%22ds-bg%22 x1=%220%22 y1=%220%22 x2=%221%22 y2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22%232A7DE1%22/%3E%3Cstop offset=%221%22 stop-color=%22%230B3A7A%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x=%220%22 y=%220%22 width=%22256%22 height=%22256%22 rx=%2252%22 fill=%22url(%23ds-bg)%22/%3E%3Cg transform=%22translate(26 36) scale(2.9)%22%3E%3Cpath d=%22M13 12h8a15 15 0 0 1 0 30h-8z%22 fill=%22none%22 stroke=%22%23fff%22 stroke-width=%226.5%22 stroke-linejoin=%22round%22/%3E%3Cpath d=%22M34 39.5 46 51.5%22 stroke=%22%23fff%22 stroke-width=%227.5%22 stroke-linecap=%22round%22/%3E%3Cpath d=%22M58.5 16.5A7 7 0 1 0 52 26A7 7 0 1 1 45.5 36%22 fill=%22none%22 stroke=%22%23fff%22 stroke-width=%226.5%22 stroke-linecap=%22round%22/%3E%3C/g%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<style>
+:root {
+  --bg: #F4F6F8; --surface: #fff; --head: #FAFBFC; --line: #D8DFE6; --line-soft: #EDF0F3;
+  --text: #16222E; --text2: #4E5D6C; --muted: #7C8B99; --faint: #AEBAC5;
+  --accent: #1B5C99; --accent-dark: #14487A; --accent-soft: #E8F1FA; --nav: #14222F; --nav-text: #A8B7C4; --nav-hi: #7FB4DE;
+  --hl: #FBE6A6; --ok: #2E9E55; --warn: #E0A21B;
+  --shadow: 0 24px 60px rgba(20, 34, 47, .18);
+  --sans: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif; --mono: "IBM Plex Mono", Consolas, ui-monospace, monospace;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.55 var(--sans); -webkit-font-smoothing: antialiased; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; cursor: pointer; }
+svg { display: block; }
+.wrap { width: min(1180px, 100% - 40px); margin: 0 auto; }
+mark { background: var(--hl); color: inherit; border-radius: 2px; padding: 0 1px; }
+.mono { font-family: var(--mono); }
+
+/* ---- header: brand, site search, language ---- */
+.top { position: sticky; top: 0; z-index: 20; background: rgba(255, 255, 255, .86); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+.top .wrap { display: flex; align-items: center; gap: 16px; height: 64px; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 20px; letter-spacing: -.01em; }
+.brand svg { width: 34px; height: 34px; }
+.find { position: relative; flex: 1; max-width: 480px; }
+.find label { display: flex; align-items: center; gap: 8px; height: 40px; padding: 0 12px; border: 1px solid var(--line); border-radius: 10px; background: #fff; transition: border-color .15s, box-shadow .15s; }
+.find label:focus-within { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(27, 92, 153, .14); }
+.find svg { width: 16px; height: 16px; color: var(--muted); flex: none; }
+.find input { flex: 1; min-width: 0; border: 0; outline: 0; background: transparent; font: 15px var(--sans); color: var(--text); }
+.find input::placeholder { color: var(--faint); }
+.find .n { font: 600 12px var(--mono); color: var(--accent); white-space: nowrap; }
+.found { position: absolute; left: 0; right: 0; top: calc(100% + 8px); display: none; flex-direction: column; gap: 6px; padding: 8px; background: #fff; border: 1px solid var(--line); border-radius: 12px; box-shadow: var(--shadow); max-height: min(70vh, 520px); overflow: auto; }
+.found.on { display: flex; }
+.found a { display: grid; grid-template-columns: 34px 1fr; gap: 10px; padding: 9px 10px; border-radius: 8px; border: 1px solid transparent; }
+.found a:hover, .found a.cur { background: var(--accent-soft); border-color: #C7DCF0; }
+.found a svg { width: 30px; height: 30px; }
+.found a b { display: block; font-size: 14px; }
+.found a span { display: block; font-size: 13px; color: var(--text2); line-height: 1.4; }
+.found a small { font: 500 11px var(--mono); color: var(--accent); text-transform: uppercase; letter-spacing: .05em; }
+.found .none { padding: 12px; color: var(--muted); font-size: 14px; text-align: center; }
+.top nav { display: flex; gap: 2px; margin-left: auto; }
+.top nav a { padding: 8px 10px; border-radius: 8px; font-weight: 500; font-size: 14px; color: var(--text2); white-space: nowrap; }
+.top nav a:hover { background: var(--line-soft); color: var(--text); }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 10px; border: 1px solid var(--line); background: #fff; font-weight: 600; font-size: 15px; transition: transform .15s, box-shadow .15s; white-space: nowrap; }
+.btn:hover { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(20, 34, 47, .12); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.btn svg { width: 16px; height: 16px; }
+.lang { position: relative; }
+.lang summary { list-style: none; display: flex; align-items: center; gap: 6px; height: 40px; padding: 0 10px; border: 1px solid var(--line); border-radius: 10px; background: #fff; cursor: pointer; font-weight: 600; font-size: 13px; }
+.lang summary::-webkit-details-marker { display: none; }
+.lang summary svg { width: 16px; height: 16px; color: var(--muted); }
+.lang div { position: absolute; right: 0; top: calc(100% + 6px); display: flex; flex-direction: column; min-width: 150px; padding: 6px; background: #fff; border: 1px solid var(--line); border-radius: 10px; box-shadow: var(--shadow); }
+.lang button { text-align: left; padding: 8px 10px; border: 0; border-radius: 7px; background: none; font-size: 14px; }
+.lang button:hover { background: var(--line-soft); }
+.lang button.on { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+
+/* ---- hero ---- */
+.hero { position: relative; overflow: hidden; background: radial-gradient(1200px 500px at 70% -10%, #1F6AAE 0%, var(--nav) 55%, #0E1820 100%); color: #fff; padding: 64px 0 90px; }
+.hero::after { content: ""; position: absolute; inset: auto 0 0; height: 90px; background: linear-gradient(transparent, var(--bg)); }
+.hero .wrap { display: grid; grid-template-columns: minmax(300px, 400px) 1fr; gap: 44px; align-items: center; position: relative; z-index: 1; }
+.hero h1 { margin: 0 0 8px; font-size: 54px; line-height: 1.04; letter-spacing: -.03em; }
+.hero h1 span { color: var(--nav-hi); }
+.hero .tag { font: 500 13px var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--nav-hi); margin-bottom: 18px; }
+.hero .lead { font-size: 18.5px; line-height: 1.5; color: #D5E0EA; margin: 0 0 26px; }
+.hero .cta { display: flex; gap: 12px; flex-wrap: wrap; }
+.hero .btn.ghost { background: rgba(255, 255, 255, .08); border-color: rgba(255, 255, 255, .22); color: #fff; }
+.hero .meta { margin-top: 22px; display: flex; gap: 18px; flex-wrap: wrap; font-size: 13px; color: var(--nav-text); }
+.hero .meta b { color: #fff; font-weight: 600; }
+.shot { background: #fff; border-radius: 14px; box-shadow: var(--shadow), 0 0 0 1px rgba(255, 255, 255, .1); overflow: hidden; color: var(--text); }
+.shot svg, .typing svg { width: 100%; height: auto; font-family: var(--sans); }
+.ap { opacity: 0; transform: translateY(6px); transition: opacity .35s ease, transform .35s ease; }
+.ap.in { opacity: 1; transform: none; }
+.ch { opacity: 0; transition: opacity .18s; }
+.ch.in { opacity: 1; }
+.caret { animation: blink 1s steps(1) infinite; }
+.mk { transform-box: fill-box; transform-origin: left center; transform: scaleX(0); transition: transform .3s ease; }
+.mk.in { transform: none; }
+.scene { opacity: 0; transition: opacity .5s; }
+.scene.in { opacity: 1; }
+.dim { transition: opacity .45s; }
+.dim.off { opacity: .22; }
+.bar { transform-box: fill-box; transform-origin: left center; transform: scaleX(0); transition: transform .5s ease; }
+.bar.in { transform: none; }
+@keyframes blink { 50% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .ap, .mk, .scene, .ch, .dim, .bar { transition: none; } .caret { animation: none; } }
+
+/* ---- sections ---- */
+section { padding: 72px 0; }
+.sec-h { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+.sec-h svg { width: 26px; height: 26px; color: var(--accent); }
+.sec-h h2 { margin: 0; font-size: 32px; letter-spacing: -.02em; }
+.sec-p { margin: 0 0 32px; color: var(--text2); font-size: 17px; max-width: 760px; }
+.steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.step { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 22px; }
+.step .num { font: 600 12px var(--mono); color: var(--accent); letter-spacing: .1em; }
+.step h3 { margin: 6px 0 6px; font-size: 19px; }
+.step p { margin: 0 0 14px; color: var(--text2); font-size: 14.5px; }
+.step svg { width: 100%; height: auto; border-radius: 10px; background: var(--head); border: 1px solid var(--line-soft); font-family: var(--sans); }
+.typing { margin-top: 28px; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 22px 22px 8px; }
+.typing h3 { margin: 0 0 4px; font-size: 20px; }
+.typing p { margin: 0 0 10px; color: var(--text2); font-size: 14.5px; }
+.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 20px 20px 18px; scroll-margin-top: 90px; transition: transform .18s, box-shadow .18s, border-color .18s; }
+.card:hover { transform: translateY(-3px); box-shadow: 0 16px 36px rgba(20, 34, 47, .1); border-color: #C7D5E2; }
+.card.flash { animation: flash 1.6s ease; }
+@keyframes flash { 0%, 60% { box-shadow: 0 0 0 4px rgba(27, 92, 153, .35); } 100% { box-shadow: none; } }
+.card .ic { width: 44px; height: 44px; border-radius: 11px; background: var(--accent-soft); color: var(--accent); display: grid; place-items: center; margin-bottom: 14px; }
+.card .ic svg { width: 24px; height: 24px; }
+.card h3 { margin: 0 0 6px; font-size: 17px; }
+.card p { margin: 0; color: var(--text2); font-size: 14.5px; line-height: 1.5; }
+.card .ex { margin-top: 12px; font: 12.5px var(--mono); color: var(--text2); background: var(--head); border: 1px solid var(--line-soft); border-radius: 8px; padding: 8px 10px; }
+.types { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 14px; }
+.tg { background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--tc, var(--accent)); border-radius: 12px; padding: 14px 16px; }
+.tg b { display: block; font-size: 14px; margin-bottom: 8px; }
+.tg span { display: inline-block; margin: 0 6px 6px 0; font: 600 11.5px var(--mono); padding: 2px 7px; border-radius: 5px; background: color-mix(in srgb, var(--tc) 14%, #fff); color: color-mix(in srgb, var(--tc) 75%, #000); }
+.dl { background: var(--nav); color: #fff; border-radius: 20px; padding: 44px; display: grid; grid-template-columns: 1fr auto; gap: 30px; align-items: center; }
+.dl h2 { margin: 0 0 8px; font-size: 30px; }
+.dl p { margin: 0; color: var(--nav-text); max-width: 620px; }
+.dl .req { margin-top: 14px; display: flex; gap: 18px; flex-wrap: wrap; font-size: 13px; color: var(--nav-text); }
+.dl .req b { color: #fff; font-weight: 600; }
+.dl .btns { display: flex; flex-direction: column; gap: 10px; }
+.dl .btn { background: rgba(255, 255, 255, .08); border-color: rgba(255, 255, 255, .22); color: #fff; justify-content: flex-start; min-width: 230px; }
+.dl .btn.primary { background: var(--nav-hi); border-color: var(--nav-hi); color: var(--nav); }
+.dl .btn small { font-weight: 400; color: inherit; opacity: .75; margin-left: auto; font-size: 12.5px; }
+footer { padding: 30px 0 40px; color: var(--muted); font-size: 13px; display: flex; gap: 16px; flex-wrap: wrap; }
+@media (max-width: 960px) {
+  .hero .wrap { grid-template-columns: 1fr; }
+  .hero h1 { font-size: 44px; }
+  .steps, .grid { grid-template-columns: 1fr 1fr; }
+  .top nav { display: none; }
+  .dl { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .steps, .grid { grid-template-columns: 1fr; }
+  .top .wrap { gap: 8px; }
+  .brand span, .top .btn.primary span { display: none; }
+  .hero { padding: 48px 0 70px; }
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="logo" viewBox="0 0 70 64"><path d="M13 12h8a15 15 0 0 1 0 30h-8z" fill="none" stroke="#1B5C99" stroke-width="6.5" stroke-linejoin="round"/><path d="M34 39.5 46 51.5" stroke="#1B5C99" stroke-width="7.5" stroke-linecap="round"/><path d="M58.5 16.5A7 7 0 1 0 52 26A7 7 0 1 1 45.5 36" fill="none" stroke="#1B5C99" stroke-width="6.5" stroke-linecap="round"/></symbol>
+  <symbol id="i-search" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="7" cy="7" r="4.5"/><path d="M10.5 10.5 14 14"/></symbol>
+  <symbol id="i-file" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M4 1.8h5.2L12.5 5v9.2H4z" fill="currentColor" fill-opacity=".14"/><path d="M9 1.8V5.2h3.4M6 8.5h4.2M6 11h4.2"/></symbol>
+  <symbol id="i-dir" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M1.8 3.5h4.3l1.5 1.7h6.6v7.6H1.8z" fill="currentColor" fill-opacity=".28"/></symbol>
+  <symbol id="i-dl" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v8M4.5 6.5 8 10l3.5-3.5M2.5 12.5v1h11v-1"/></symbol>
+  <symbol id="i-lang" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"/></symbol>
+  <symbol id="i-zap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M10 8.5v7l5.5-3.5z" fill="currentColor"/></symbol>
+  <symbol id="i-types" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="8" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/><rect x="13" y="13" width="8" height="8" rx="2"/></symbol>
+  <symbol id="i-text" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h10M4 18h13"/><circle cx="18.5" cy="17" r="3"/><path d="m20.8 19.3 1.7 1.7"/></symbol>
+  <symbol id="i-ocr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3M8 12h8M8 9h5M8 15h6"/></symbol>
+  <symbol id="i-name" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a1 1 0 0 1 1-1h5l2 2h9a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/><path d="M12 11v5M9.5 12.5l2.5-1.5 2.5 1.5"/></symbol>
+  <symbol id="i-opts" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2.5"/><circle cx="10" cy="17" r="2.5"/></symbol>
+  <symbol id="i-table" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 4v16M15 4v16"/></symbol>
+  <symbol id="i-export" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v11M8 10l4 4 4-4M5 17v3h14v-3"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-map" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="11" height="9" rx="1.5"/><rect x="16" y="3" width="5" height="5" rx="1.5"/><rect x="16" y="10" width="5" height="11" rx="1.5"/><rect x="3" y="14" width="11" height="7" rx="1.5"/></symbol>
+  <symbol id="i-watch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></symbol>
+  <symbol id="i-win" viewBox="0 0 16 16" fill="currentColor"><path d="M1.5 3.2 7 2.4v5.3H1.5zM8 2.3l6.5-.9v6.3H8zM1.5 8.5H7v5.2l-5.5-.8zM8 8.5h6.5v6.2L8 13.8z"/></symbol>
+  <symbol id="i-linux" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1.5c-2 0-3 1.6-3 3.6 0 1.2-.4 2-1 3S2.6 10.4 3 12c.3 1.2 1.4 1.5 2.3 1.4.8.6 2.6.6 3.4 0 .9.1 2-.2 2.3-1.4.4-1.6-.5-2.9-1-3.9s-1-1.8-1-3c0-2-1-3.6-3-3.6z"/><circle cx="7" cy="5" r=".5" fill="currentColor"/><circle cx="9" cy="5" r=".5" fill="currentColor"/></symbol>
+  <symbol id="i-mac" viewBox="0 0 16 16" fill="currentColor"><path d="M11.2 8.5c0-1.4 1.1-2 1.2-2.1-.7-1-1.7-1.1-2-1.1-.9-.1-1.7.5-2.1.5s-1.1-.5-1.8-.5c-1 0-1.8.6-2.3 1.4-1 1.7-.3 4.3.7 5.7.5.7 1 1.4 1.8 1.4.7 0 1-.5 1.8-.5s1.1.5 1.8.5c.8 0 1.3-.7 1.7-1.4.6-.8.8-1.6.8-1.6s-1.6-.6-1.6-2.3zM9.8 4.3c.4-.5.7-1.1.6-1.8-.6 0-1.3.4-1.7.9-.4.4-.7 1.1-.6 1.7.6.1 1.3-.3 1.7-.8z"/></symbol>
+</svg>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#"><svg><use href="#logo"/></svg><span>DigSearch</span></a>
+    <div class="find">
+      <label><svg><use href="#i-search"/></svg><input id="find" type="search" data-ip="Bu sayfada ara: excel, ocr, joker, dışa aktar, izleme…" autocomplete="off" aria-label="Ara"><span class="n" id="findN"></span></label>
+      <div class="found" id="found" role="listbox"></div>
+    </div>
+    <nav><a href="#nasil" data-i="Nasıl çalışır">Nasıl çalışır</a><a href="#ozellikler" data-i="Özellikler">Özellikler</a><a href="#turler" data-i="Dosya türleri">Dosya türleri</a></nav>
+    <details class="lang" id="lang"><summary title="Dil · Language"><svg><use href="#i-lang"/></svg><b id="langB">TR</b></summary>
+      <div><button data-l="tr" lang="tr">Türkçe</button><button data-l="en" lang="en">English</button><button data-l="de" lang="de">Deutsch</button><button data-l="zh" lang="zh">中文</button><button data-l="ru" lang="ru">Русский</button></div></details>
+    <a class="btn primary" href="#indir"><svg><use href="#i-dl"/></svg><span data-i="İndir">İndir</span></a>
+  </div>
+</header>
+
+<main>
+<div class="hero">
+  <div class="wrap">
+    <div>
+      <div class="tag" data-i="İçerik arama · Windows · Linux · macOS">İçerik arama · Windows · Linux · macOS</div>
+      <h1 data-i="Dosya <span>içeriğinde</span> arayın.">Dosya <span>içeriğinde</span> arayın.</h1>
+      <p class="lead" data-i="lead"></p>
+      <div class="cta"><a class="btn primary" href="#indir"><svg><use href="#i-dl"/></svg><span data-i="Şimdi indir">Şimdi indir</span></a><a class="btn ghost" href="#nasil"><svg><use href="#i-play"/></svg><span data-i="Nasıl çalışır">Nasıl çalışır</span></a></div>
+      <div class="meta"><span data-i="<b>Tek dosya</b> · kurulum yok"></span><span data-i="<b>İnternet yok</b> · veri bilgisayarınızda"></span><span data-i="<b>Windows</b> · Linux · macOS"></span></div>
+    </div>
+    <div class="shot" id="shot" aria-label="DigSearch"></div>
+  </div>
+</div>
+
+<section id="nasil">
+  <div class="wrap">
+    <div class="sec-h"><svg><use href="#i-play"/></svg><h2 data-i="Üç adımda">Üç adımda</h2></div>
+    <p class="sec-p" data-i="Klasörünüzü gösterin, gerisi arka planda olur. Sonraki açılışlarda yalnız yeni ve değişen dosyalar okunur."></p>
+    <div class="steps">
+      <div class="step"><div class="num">01</div><h3 data-i="Klasörü ekleyin"></h3><p data-i="step1"></p><svg viewBox="0 0 320 170" id="st1"></svg></div>
+      <div class="step"><div class="num">02</div><h3 data-i="İndeks oluşur"></h3><p data-i="step2"></p><svg viewBox="0 0 320 170" id="st2"></svg></div>
+      <div class="step"><div class="num">03</div><h3 data-i="Yazarken arayın"></h3><p data-i="step3"></p><svg viewBox="0 0 320 170" id="st3"></svg></div>
+    </div>
+    <div class="typing"><h3 data-i="Her harf süzer"></h3><p data-i="typing-p"></p><div id="typing"></div></div>
+  </div>
+</section>
+
+<section id="ozellikler">
+  <div class="wrap">
+    <div class="sec-h"><svg><use href="#i-zap"/></svg><h2 data-i="Özellikler">Özellikler</h2></div>
+    <p class="sec-p" data-i="features-p"></p>
+    <div class="grid" id="cards"></div>
+  </div>
+</section>
+
+<section id="turler">
+  <div class="wrap">
+    <div class="sec-h"><svg><use href="#i-types"/></svg><h2 data-i="Okunan dosya türleri">Okunan dosya türleri</h2></div>
+    <p class="sec-p" data-i="types-p"></p>
+    <div class="types" id="types"></div>
+  </div>
+</section>
+
+<section id="indir">
+  <div class="wrap">
+    <div class="dl">
+      <div>
+        <h2 data-i="DigSearch'ü indirin"></h2>
+        <p data-i="dl-p"></p>
+        <div class="req"><span data-i="<b>Windows</b> 10 / 11 · 64 bit"></span><span data-i="<b>Linux</b> · tar.gz"></span><span data-i="<b>macOS</b> · Apple Silicon ve Intel"></span><span><b data-i="Sürüm">Sürüm</b> <span id="ver"></span></span></div>
+      </div>
+      <div class="btns">
+        <a class="btn primary" id="dlWin" href="#indir"><svg><use href="#i-win"/></svg>Windows<small>.exe</small></a>
+        <a class="btn" id="dlLin" href="#indir"><svg><use href="#i-linux"/></svg>Linux<small>.tar.gz</small></a>
+        <a class="btn" id="dlMac" href="#indir"><svg><use href="#i-mac"/></svg>macOS<small>.zip</small></a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+<footer class="wrap"><span>© 2026 DigSearch</span></footer>
+
+<script>
+// ---------- languages: every string keyed by its Turkish text; long Turkish texts sit under short keys as the first entry ----------
+const LANGS = ['tr', 'en', 'de', 'zh', 'ru'];
+const VER = '4.42.0', DL = 'https://digsearch.org/downloads/'; // the downloads beside the page on the web site
+const D = {
+  'Bu sayfada ara: excel, ocr, joker, dışa aktar, izleme…': ['Search this page: excel, ocr, wildcard, export, watch…', 'Diese Seite durchsuchen: excel, ocr, platzhalter, export…', '搜索本页：excel、ocr、通配符、导出、监视…', 'Поиск по странице: excel, ocr, шаблон, экспорт…'],
+  'Nasıl çalışır': ['How it works', 'So funktioniert es', '工作原理', 'Как это работает'],
+  'Özellikler': ['Features', 'Funktionen', '功能', 'Возможности'],
+  'Dosya türleri': ['File types', 'Dateitypen', '文件类型', 'Типы файлов'],
+  'İndir': ['Download', 'Herunterladen', '下载', 'Скачать'],
+  'Şimdi indir': ['Download now', 'Jetzt herunterladen', '立即下载', 'Скачать сейчас'],
+  'İçerik arama · Windows · Linux · macOS': ['Content search · Windows · Linux · macOS', 'Inhaltssuche · Windows · Linux · macOS', '内容搜索 · Windows · Linux · macOS', 'Поиск по содержимому · Windows · Linux · macOS'],
+  'Dosya <span>içeriğinde</span> arayın.': ['Search <span>inside</span> your files.', 'Suchen Sie <span>im Inhalt</span> Ihrer Dateien.', '在文件<span>内容</span>中搜索。', 'Ищите <span>внутри</span> файлов.'],
+  lead: ['Excel, Word, PowerPoint, PDF, taranmış belgeler ve metin dosyaları: binlerce dosyanın içindeki her satır siz yazarken bulunur. Tamamen bilgisayarınızda çalışır.', 'Excel, Word, PowerPoint, PDF, scanned documents and text files: every line inside thousands of files is found as you type. Runs entirely on your computer.', 'Excel, Word, PowerPoint, PDF, gescannte Dokumente und Textdateien: jede Zeile in Tausenden Dateien wird gefunden, während Sie tippen. Läuft vollständig auf Ihrem Rechner.', 'Excel、Word、PowerPoint、PDF、扫描文档和文本文件：成千上万文件中的每一行，边输入边找到。完全在您的电脑上运行。', 'Excel, Word, PowerPoint, PDF, сканы и текстовые файлы: каждая строка в тысячах файлов находится, пока вы печатаете. Работает полностью на вашем компьютере.'],
+  '<b>Tek dosya</b> · kurulum yok': ['<b>One file</b> · no installer', '<b>Eine Datei</b> · keine Installation', '<b>单个文件</b> · 无需安装', '<b>Один файл</b> · без установки'],
+  '<b>İnternet yok</b> · veri bilgisayarınızda': ['<b>No internet</b> · data stays with you', '<b>Kein Internet</b> · Daten bleiben bei Ihnen', '<b>不联网</b> · 数据留在本机', '<b>Без интернета</b> · данные у вас'],
+  '<b>Windows</b> · Linux · macOS': ['<b>Windows</b> · Linux · macOS', '<b>Windows</b> · Linux · macOS', '<b>Windows</b> · Linux · macOS', '<b>Windows</b> · Linux · macOS'],
+  'Üç adımda': ['Three steps', 'Drei Schritte', '三步完成', 'Три шага'],
+  'Klasörünüzü gösterin, gerisi arka planda olur. Sonraki açılışlarda yalnız yeni ve değişen dosyalar okunur.': ['Point at a folder; the rest happens in the background. Later starts read only new and changed files.', 'Zeigen Sie auf einen Ordner, der Rest läuft im Hintergrund. Später werden nur neue und geänderte Dateien gelesen.', '选择文件夹，其余在后台完成。之后启动只读取新增和更改的文件。', 'Укажите папку, остальное произойдёт в фоне. Потом читаются только новые и изменённые файлы.'],
+  'Klasörü ekleyin': ['Add a folder', 'Ordner hinzufügen', '添加文件夹', 'Добавьте папку'],
+  step1: ['Klasör seçilince içerik okunmadan bir harita çıkar: hangi alt klasör ne kadar yer tutuyor, hangi türler var. Aramaya girecekleri kutucuklarla seçersiniz.', 'Choosing a folder draws a map before anything is read: how much each subfolder takes, which types it holds. Tick what goes into the search.', 'Beim Auswählen entsteht eine Karte, bevor etwas gelesen wird: wie viel jeder Unterordner belegt, welche Typen es gibt. Was in die Suche kommt, haken Sie ab.', '选定文件夹后先绘出地图：各子文件夹占多少空间、有哪些类型。用复选框选择要搜索的部分。', 'При выборе папки рисуется карта ещё до чтения: сколько занимает каждая подпапка, какие там типы. Галочками выбираете, что искать.'],
+  'İndeks oluşur': ['The index is built', 'Der Index entsteht', '建立索引', 'Строится индекс'],
+  step2: ['Dosyalar tüm çekirdeklerle okunur, metin diskte sıkıştırılmış bir indekse yazılır. 2.500 dosya ve 2,6 milyon satır yaklaşık 14 saniye sürer.', 'Files are read on all cores and the text goes into a compressed index on disk. 2,500 files and 2.6 million lines take about 14 seconds.', 'Dateien werden auf allen Kernen gelesen, der Text landet komprimiert in einem Index auf der Platte. 2.500 Dateien und 2,6 Millionen Zeilen dauern etwa 14 Sekunden.', '用全部核心读取文件，文本压缩后写入磁盘索引。2,500 个文件、260 万行约需 14 秒。', 'Файлы читаются всеми ядрами, текст пишется в сжатый индекс на диске. 2 500 файлов и 2,6 млн строк — около 14 секунд.'],
+  'Yazarken arayın': ['Search as you type', 'Suchen beim Tippen', '边输入边搜索', 'Ищите, пока печатаете'],
+  step3: ['Her tuşta sonuçlar yenilenir; eşleşen satır, dosya ve tür sayılarıyla gelir. Seçili satır önizlemede açılır, satıra kayar.', 'Results refresh on every key, with counts of matching lines, files and types. The selected line opens in the preview and scrolls into view.', 'Bei jeder Taste werden die Ergebnisse erneuert, mit Zählern für Zeilen, Dateien und Typen. Die gewählte Zeile öffnet sich in der Vorschau.', '每次按键刷新结果，附带匹配行数、文件数和类型数。选中的行在预览中打开并滚动到位。', 'Результаты обновляются при каждом нажатии, с числом строк, файлов и типов. Выбранная строка открывается в предпросмотре.'],
+  'Her harf süzer': ['Every letter narrows it down', 'Jeder Buchstabe grenzt ein', '每个字符都在缩小范围', 'Каждая буква сужает поиск'],
+  'typing-p': ['Yazdıkça eşleşme sayısı anında güncellenir; uymayan satırlar düşer, kalanlarda işaret uzar.', 'As you type, the match count updates at once; lines that no longer match drop out, the mark grows on the ones that stay.', 'Beim Tippen aktualisiert sich die Trefferzahl sofort; was nicht mehr passt, fällt weg, die Markierung wächst auf dem Rest.', '输入时匹配数立即更新；不再匹配的行消失，留下的行上标记变长。', 'Пока вы печатаете, число совпадений обновляется сразу; лишние строки уходят, на оставшихся растёт выделение.'],
+  'features-p': ['Masaüstü aramanın eksik bıraktığı her şey: dosya içeriği, taranmış sayfalar, tablolar, adlar ve bulduğunuzu düzene sokacak araçlar.', 'Everything desktop search leaves out: file content, scanned pages, tables, names, and the tools to sort out what you find.', 'Alles, was die Desktop-Suche auslässt: Dateiinhalt, gescannte Seiten, Tabellen, Namen und die Werkzeuge, um Gefundenes zu ordnen.', '桌面搜索缺少的一切：文件内容、扫描页面、表格、文件名，以及整理结果的工具。', 'Всё, чего не хватает поиску в системе: содержимое файлов, сканы, таблицы, имена и инструменты для работы с найденным.'],
+  'Okunan dosya türleri': ['File types read', 'Gelesene Dateitypen', '可读取的文件类型', 'Читаемые типы файлов'],
+  'types-p': ['Kendi uzantılarınızı da ekleyebilirsiniz; düz metin gibi satır satır okunur. İstemediğiniz türleri klasör klasör kapatabilirsiniz.', 'Add your own extensions too; they are read line by line as plain text. Types you do not want can be switched off per folder.', 'Eigene Endungen lassen sich ergänzen; sie werden zeilenweise als Text gelesen. Unerwünschte Typen schalten Sie je Ordner ab.', '也可以添加自己的扩展名，按纯文本逐行读取。不需要的类型可按文件夹关闭。', 'Можно добавить свои расширения; они читаются построчно как текст. Ненужные типы отключаются по папкам.'],
+  "DigSearch'ü indirin": ['Get DigSearch', 'DigSearch herunterladen', '下载 DigSearch', 'Скачать DigSearch'],
+  'dl-p': ['Tek dosya; çalıştırın, klasörünüzü ekleyin. İndeks ve ayarlar yalnız bu bilgisayarda tutulur; kaldırdığınızda hepsi silinir.', 'One file: run it, add your folder. The index and settings stay on this computer only; uninstalling removes them all.', 'Eine Datei: starten, Ordner hinzufügen. Index und Einstellungen bleiben nur auf diesem Rechner; beim Entfernen ist alles weg.', '单个文件：运行后添加文件夹。索引和设置只保存在本机；卸载时全部删除。', 'Один файл: запустите, добавьте папку. Индекс и настройки хранятся только на этом компьютере; при удалении всё стирается.'],
+  '<b>Windows</b> 10 / 11 · 64 bit': ['<b>Windows</b> 10 / 11 · 64 bit', '<b>Windows</b> 10 / 11 · 64 Bit', '<b>Windows</b> 10 / 11 · 64 位', '<b>Windows</b> 10 / 11 · 64 бит'],
+  '<b>Linux</b> · tar.gz': ['<b>Linux</b> · tar.gz', '<b>Linux</b> · tar.gz', '<b>Linux</b> · tar.gz', '<b>Linux</b> · tar.gz'],
+  '<b>macOS</b> · Apple Silicon ve Intel': ['<b>macOS</b> · Apple Silicon and Intel', '<b>macOS</b> · Apple Silicon und Intel', '<b>macOS</b> · Apple Silicon 与 Intel', '<b>macOS</b> · Apple Silicon и Intel'],
+  'Sürüm': ['Version', 'Version', '版本', 'Версия'],
+  'Özellik': ['Feature', 'Funktion', '功能', 'Возможность'],
+  'Dosya türü': ['File type', 'Dateityp', '文件类型', 'Тип файла'],
+  '{0} sonuç': ['{0} results', '{0} Treffer', '{0} 个结果', '{0} результатов'],
+  '“{0}” için sonuç yok. Deneyin: excel, ocr, joker, süzgeç, dışa aktar.': ['No results for “{0}”. Try: excel, ocr, wildcard, filter, export.', 'Keine Treffer für „{0}“. Versuchen Sie: excel, ocr, platzhalter, filter, export.', '“{0}” 无结果。试试：excel、ocr、通配符、筛选、导出。', 'Ничего не найдено по «{0}». Попробуйте: excel, ocr, шаблон, фильтр, экспорт.'],
+  // the app's window
+  'İÇERİK ARAMA': ['CONTENT SEARCH', 'INHALTSSUCHE', '内容搜索', 'ПОИСК В ФАЙЛАХ'],
+  'Arama': ['Search', 'Suche', '搜索', 'Поиск'],
+  'İNDEKS': ['INDEX', 'INDEX', '索引', 'ИНДЕКС'],
+  'Klasör': ['Folder', 'Ordner', '文件夹', 'Папка'],
+  'Alt klasör': ['Subfolders', 'Unterordner', '子文件夹', 'Подпапки'],
+  'Dosya': ['Files', 'Dateien', '文件', 'Файлы'],
+  'Satır': ['Lines', 'Zeilen', '行', 'Строки'],
+  'Toplam': ['Total', 'Gesamt', '总计', 'Всего'],
+  'Dosya türü ': ['File types', 'Dateitypen', '文件类型', 'Типы файлов'],
+  'TÜRLERE GÖRE DOSYALAR': ['FILES BY TYPE', 'DATEIEN NACH TYP', '按类型的文件', 'ФАЙЛЫ ПО ТИПАМ'],
+  'diğer': ['other', 'andere', '其他', 'другие'],
+  'İndeks güncel · 2 dk önce': ['Index up to date · 2 min ago', 'Index aktuell · vor 2 Min.', '索引为最新 · 2 分钟前', 'Индекс актуален · 2 мин назад'],
+  'Klasör Analizi': ['Folder Analysis', 'Ordneranalyse', '文件夹分析', 'Анализ папки'],
+  'Ayarlar': ['Settings', 'Einstellungen', '设置', 'Настройки'],
+  'Türler: Tümü': ['Types: All', 'Typen: Alle', '类型：全部', 'Типы: все'],
+  'Tümü': ['All', 'Alle', '全部', 'Все'],
+  'Hiçbiri': ['None', 'Keine', '无', 'Ничего'],
+  'Tersi': ['Invert', 'Umkehren', '反选', 'Инвертировать'],
+  'Dosya adı': ['File name', 'Dateiname', '文件名', 'Имя файла'],
+  'TÜR': ['TYPE', 'TYP', '类型', 'ТИП'],
+  'DEĞİŞTİRME': ['MODIFIED', 'GEÄNDERT', '修改时间', 'ИЗМЕНЁН'],
+  'DOSYA ADI': ['FILE NAME', 'DATEINAME', '文件名', 'ИМЯ ФАЙЛА'],
+  'EŞLEŞEN METİN': ['MATCHING TEXT', 'TREFFERTEXT', '匹配文本', 'ТЕКСТ'],
+  'BOYUT': ['SIZE', 'GRÖSSE', '大小', 'РАЗМЕР'],
+  'Görünüm: Liste': ['View: List', 'Ansicht: Liste', '视图：列表', 'Вид: список'],
+  'Sayfa': ['Sheet', 'Blatt', '工作表', 'Лист'],
+  '{0} dosya': ['{0} files', '{0} Dateien', '{0} 个文件', '{0} файлов'],
+  '{0} eşleşme · {1} ms': ['{0} matches · {1} ms', '{0} Treffer · {1} ms', '{0} 处匹配 · {1} ms', '{0} совпадений · {1} мс'],
+  'eşleşme': ['matches', 'Treffer', '匹配', 'совпадений'],
+  // step drawings
+  'Belgeler': ['Documents', 'Dokumente', '文档', 'Документы'], 'Projeler': ['Projects', 'Projekte', '项目', 'Проекты'], 'Fotoğraf': ['Photos', 'Fotos', '照片', 'Фото'], 'Arşiv': ['Archive', 'Archiv', '归档', 'Архив'], 'Raporlar': ['Reports', 'Berichte', '报告', 'Отчёты'], 'Geçici': ['Temp', 'Temp', '临时', 'Временные'],
+  'İndekslenecek': ['To be indexed', 'Wird indexiert', '将索引', 'К индексации'],
+  '8 çekirdek · 14 sn · sıkıştırılmış, bloklu': ['8 cores · 14 s · compressed, in blocks', '8 Kerne · 14 s · komprimiert, in Blöcken', '8 核 · 14 秒 · 压缩分块', '8 ядер · 14 с · сжато, блоками'],
+  'sunucu odası': ['server room', 'Serverraum', '机房', 'серверная'],
+  '4 dosya · 1.206 eşleşme · 9 ms': ['4 files · 1,206 matches · 9 ms', '4 Dateien · 1.206 Treffer · 9 ms', '4 个文件 · 1,206 处匹配 · 9 ms', '4 файла · 1 206 совпадений · 9 мс'],
+  // cards
+  'Dosya içeriğinde ara': ['Search inside files', 'Im Dateiinhalt suchen', '在文件内容中搜索', 'Поиск внутри файлов'],
+  c1: ['Excel hücreleri, Word paragrafları ve tabloları, PowerPoint slaytları, PDF sayfaları, metin ve kod dosyaları. Birden çok kelimede hepsinin geçtiği satırlar; "tam ifade" tırnakla.', 'Excel cells, Word paragraphs and tables, PowerPoint slides, PDF pages, text and code files. Several words find the lines with all of them; "exact phrase" with quotes.', 'Excel-Zellen, Word-Absätze und -Tabellen, PowerPoint-Folien, PDF-Seiten, Text- und Codedateien. Mehrere Wörter finden Zeilen mit allen; "genauer Ausdruck" in Anführungszeichen.', 'Excel 单元格、Word 段落和表格、PowerPoint 幻灯片、PDF 页面、文本和代码文件。多个词找同时包含全部的行；引号表示“精确短语”。', 'Ячейки Excel, абзацы и таблицы Word, слайды PowerPoint, страницы PDF, текст и код. Несколько слов находят строки со всеми; "точная фраза" в кавычках.'],
+  'Taranmış belgelerde OCR': ['OCR for scanned documents', 'OCR für gescannte Dokumente', '扫描文档的 OCR', 'OCR для сканов'],
+  c2: ['Metin katmanı olmayan PDF sayfaları ve resimler (JPG, PNG, TIFF) okunur. Okunan sayfalar saklanır, bir daha okunmaz.', 'PDF pages without a text layer and images (JPG, PNG, TIFF) are read. Pages once read are kept and never read again.', 'PDF-Seiten ohne Textebene und Bilder (JPG, PNG, TIFF) werden gelesen. Einmal gelesene Seiten bleiben erhalten.', '读取没有文本层的 PDF 页面和图片（JPG、PNG、TIFF）。已读页面会保留，不再重复读取。', 'Читаются страницы PDF без текстового слоя и изображения (JPG, PNG, TIFF). Прочитанные страницы сохраняются.'],
+  'Dosya ve klasör adında arama': ['Search in file and folder names', 'Suche in Datei- und Ordnernamen', '按文件和文件夹名搜索', 'Поиск по именам файлов и папок'],
+  c3: ['Tek düğmeyle yalnız adlarda arayın: tek harf bile yeter. * bir karakterin yerini tutar. Klasörler de değiştirme ve oluşturma tarihleriyle listelenir.', 'One button searches names only: a single letter is enough. * stands for one character. Folders are listed too, with their modified and created dates.', 'Ein Knopf sucht nur in Namen: ein Buchstabe genügt. * steht für ein Zeichen. Ordner erscheinen mit Änderungs- und Erstellungsdatum.', '一键只搜索名称：一个字符就够。* 代表任意一个字符。文件夹也会列出，带修改和创建日期。', 'Одна кнопка — поиск только по именам: хватит и одной буквы. * заменяет один символ. Папки тоже в списке, с датами.'],
+  'Harf duyarsız, isterseniz hassas': ['Relaxed by default, exact when you want', 'Locker voreingestellt, genau bei Bedarf', '默认宽松，需要时精确', 'Мягко по умолчанию, точно по желанию'],
+  c4: ['Varsayılan arama büyük/küçük harf ve aksan farkı gözetmez. Aa büyük/küçük duyarlı, ab yalnız tam kelime, .* düzenli ifade. Yazarken arama kapatılıp Enter ile aranabilir.', 'By default case and accents do not matter. Aa makes it case-sensitive, ab whole words only, .* regular expressions. Live search can be turned off to search on Enter.', 'Standardmäßig spielen Groß-/Kleinschreibung und Akzente keine Rolle. Aa unterscheidet Groß/Klein, ab nur ganze Wörter, .* reguläre Ausdrücke. Die Live-Suche lässt sich auf Enter umstellen.', '默认不区分大小写和重音。Aa 区分大小写，ab 仅整词，.* 正则表达式。可关闭即时搜索，改为按 Enter。', 'По умолчанию регистр и диакритика не важны. Aa — с учётом регистра, ab — только целые слова, .* — регулярные выражения. Живой поиск можно заменить на Enter.'],
+  'Hiyerarşi ya da liste, sizin tablonuz': ['Hierarchy or list, your table', 'Hierarchie oder Liste, Ihre Tabelle', '层级或列表，由您定义', 'Иерархия или список — ваша таблица'],
+  c5: ['Sonuçlar dosya başına gruplanır ya da her eşleşme bir satır olur. Sütunları seçin, sürükleyerek sıralayın, kenardan genişletin, çift tıkla içeriğe sığdırın. Her sütun için içerir / içermez süzgeci.', 'Results group by file or every match becomes a row. Pick columns, drag them into order, resize at the edge, double-click to fit. A contains / does not contain filter per column.', 'Ergebnisse gruppiert je Datei oder jede Übereinstimmung als Zeile. Spalten wählen, per Ziehen ordnen, am Rand breiter ziehen, per Doppelklick anpassen. Enthält/enthält-nicht-Filter je Spalte.', '结果按文件分组，或每个匹配一行。选择列、拖动排序、边缘调宽、双击适应。每列有“包含 / 不包含”筛选。', 'Результаты группируются по файлам или каждое совпадение — строка. Выбирайте столбцы, переставляйте, меняйте ширину, подгоняйте двойным щелчком. Фильтр содержит / не содержит по столбцам.'],
+  'Excel ya da CSV olarak dışa aktarın': ['Export to Excel or CSV', 'Export nach Excel oder CSV', '导出为 Excel 或 CSV', 'Экспорт в Excel или CSV'],
+  c6: ['Görünen sütunlar ve süzülmüş satırlar, her eşleşme bir satır: xlsx (kalın başlık, dondurulmuş ilk satır) ya da UTF-8 CSV. Sistemin Kaydet penceresiyle.', 'The shown columns and filtered rows, one row per match: xlsx (bold header, frozen first row) or UTF-8 CSV, through the system save dialog.', 'Angezeigte Spalten und gefilterte Zeilen, eine Zeile je Treffer: xlsx (fette Kopfzeile, fixierte erste Zeile) oder UTF-8-CSV, über den Speichern-Dialog.', '显示的列和筛选后的行，每个匹配一行：xlsx（加粗表头、冻结首行）或 UTF-8 CSV，通过系统保存对话框。', 'Показанные столбцы и отфильтрованные строки, одно совпадение — строка: xlsx (жирный заголовок, закреплённая строка) или UTF-8 CSV через системный диалог.'],
+  'Yerinde önizleme': ['Preview in place', 'Vorschau an Ort und Stelle', '原位预览', 'Предпросмотр на месте'],
+  c7: ['Seçili dosya sağda açılır, eşleşen satıra kayar; kaydırdıkça devamı yüklenir. Excel sayfaları sekmeli, tablolar sütun başlıklı. Dosyada ara, satırı ya da tabloyu kopyala, düzenleyicide aç.', 'The selected file opens on the right and scrolls to the match; more loads as you scroll. Excel sheets as tabs, tables with headers. Find in file, copy a row or table, open in the editor.', 'Die gewählte Datei öffnet sich rechts und springt zum Treffer; beim Scrollen lädt mehr. Excel-Blätter als Reiter, Tabellen mit Kopfzeilen. In der Datei suchen, Zeile oder Tabelle kopieren, im Editor öffnen.', '选中文件在右侧打开并滚动到匹配处；滚动时继续加载。Excel 工作表为选项卡，表格带表头。文件内查找、复制行或表、在编辑器中打开。', 'Выбранный файл открывается справа и прокручивается к совпадению; при прокрутке подгружается дальше. Листы Excel — вкладками, таблицы — с заголовками. Поиск в файле, копирование строки или таблицы, открытие в редакторе.'],
+  c8: ['Yakınlaştırılabilir boyut haritası, yinelenen dosyalar, büyük ve eski dosyalar, boyut × yaş haritası. İşaretlediklerinizi Geri Dönüşüm Kutusu\'na taşıyın.', 'A zoomable size map, duplicate files, large and old files, a size × age map. Move what you tick to the Recycle Bin.', 'Zoombare Größenkarte, doppelte Dateien, große und alte Dateien, Karte Größe × Alter. Markiertes wandert in den Papierkorb.', '可缩放的大小地图、重复文件、大文件和旧文件、大小 × 年龄图。勾选的文件可移到回收站。', 'Масштабируемая карта размеров, дубликаты, большие и старые файлы, карта размер × возраст. Отмеченное — в корзину.'],
+  'Değişiklikler kendiliğinden': ['Changes on their own', 'Änderungen von selbst', '自动跟踪变化', 'Изменения сами собой'],
+  c9: ['İzlenen klasörde eklenen, değişen ve silinen dosyalar birkaç saniye içinde indekse işlenir. İzlemesiz klasörler açılışta ve istediğinizde taranır.', 'In a watched folder, added, changed and deleted files reach the index within seconds. Unwatched folders are scanned at start and on request.', 'In einem überwachten Ordner landen neue, geänderte und gelöschte Dateien binnen Sekunden im Index. Andere Ordner werden beim Start und auf Wunsch gescannt.', '监视的文件夹中，新增、更改和删除的文件几秒内进入索引。未监视的文件夹在启动时和需要时扫描。', 'В отслеживаемой папке добавленные, изменённые и удалённые файлы попадают в индекс за секунды. Остальные папки сканируются при запуске и по запросу.'],
+  'Milyonlarca satırda milisaniyeler': ['Milliseconds across millions of lines', 'Millisekunden über Millionen Zeilen', '百万行中的毫秒级', 'Миллисекунды на миллионах строк'],
+  c10: ['Metin bloklara ayrılmış bir indekste tutulur; arama yalnız aday blokları okur. 2,6 milyon satırda seçici arama 4–50 ms. Bellek ve işlemci kullanımı makinenize göre ayarlanır.', 'Text lives in an index of blocks; a search reads only the candidate blocks. A selective search over 2.6 million lines takes 4–50 ms. Memory and CPU use adapt to your machine.', 'Der Text liegt in einem Index aus Blöcken; die Suche liest nur Kandidaten. Eine selektive Suche über 2,6 Millionen Zeilen dauert 4–50 ms. Speicher- und CPU-Nutzung passen sich an.', '文本保存在分块索引中，搜索只读取候选块。260 万行中的选择性搜索 4–50 ms。内存和 CPU 用量随机器调整。', 'Текст хранится в индексе из блоков; поиск читает только блоки-кандидаты. Выборочный поиск по 2,6 млн строк — 4–50 мс. Память и процессор подстраиваются под машину.'],
+  'Her şey bilgisayarınızda': ['Everything on your computer', 'Alles auf Ihrem Rechner', '一切都在您的电脑上', 'Всё на вашем компьютере'],
+  c11: ['İnternete bağlanmaz, hesap istemez, hiçbir veri gönderilmez. İndeks ve ayarlar yerel klasörde; kaldırınca silinir.', 'No internet, no account, nothing is sent anywhere. The index and settings sit in a local folder and go when you uninstall.', 'Kein Internet, kein Konto, nichts wird gesendet. Index und Einstellungen liegen lokal und verschwinden beim Entfernen.', '不联网、无需账户、不发送任何数据。索引和设置在本地文件夹，卸载即删除。', 'Без интернета и аккаунта, ничего не отправляется. Индекс и настройки в локальной папке, удаляются вместе с программой.'],
+  'Beş dil, klavyeyle': ['Five languages, keyboard first', 'Fünf Sprachen, per Tastatur', '五种语言，键盘优先', 'Пять языков, с клавиатуры'],
+  c12: ['Türkçe, English, Deutsch, 中文, Русский. / ile arama kutusu, ↑↓ ile eşleşmeler, Ctrl+K ile analiz, Ctrl+Enter ile dosyayı aç.', 'Türkçe, English, Deutsch, 中文, Русский. / focuses the search box, ↑↓ walk the matches, Ctrl+K opens analysis, Ctrl+Enter opens the file.', 'Türkçe, English, Deutsch, 中文, Русский. / springt ins Suchfeld, ↑↓ gehen durch die Treffer, Strg+K öffnet die Analyse, Strg+Enter die Datei.', 'Türkçe、English、Deutsch、中文、Русский。/ 聚焦搜索框，↑↓ 浏览匹配，Ctrl+K 打开分析，Ctrl+Enter 打开文件。', 'Türkçe, English, Deutsch, 中文, Русский. / — в строку поиска, ↑↓ — по совпадениям, Ctrl+K — анализ, Ctrl+Enter — открыть файл.'],
+  'Ofis': ['Office', 'Office', '办公', 'Офис'], 'PDF ve e-kitap': ['PDF and e-books', 'PDF und E-Books', 'PDF 与电子书', 'PDF и электронные книги'], 'Veri': ['Data', 'Daten', '数据', 'Данные'], 'Kod': ['Code', 'Code', '代码', 'Код'], 'Web ve metin': ['Web and text', 'Web und Text', '网页与文本', 'Веб и текст'], 'E-posta ve kişi': ['Mail and contacts', 'Mail und Kontakte', '邮件与联系人', 'Почта и контакты'], 'Görsel (OCR)': ['Images (OCR)', 'Bilder (OCR)', '图片 (OCR)', 'Изображения (OCR)'],
+};
+let LANG = 'tr';
+// T: the text in the current language; an entry of 5 carries its Turkish first, an entry of 4 is keyed by the Turkish itself
+const T = k => { const v = D[k]; if (!v) return k; const i = LANGS.indexOf(LANG); return v.length === 5 ? v[i] : (i === 0 ? k : v[i - 1]); };
+const TF = (k, ...a) => T(k).replace(/\{(\d)\}/g, (m, i) => a[i]);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const num = n => n.toLocaleString({ tr: 'tr-TR', en: 'en-US', de: 'de-DE', zh: 'zh-CN', ru: 'ru-RU' }[LANG]);
+
+// ---------- feature cards (also the site search's index) ----------
+const F = [
+  { id: 'icerik', ic: 'i-text', t: 'Dosya içeriğinde ara', d: 'c1', ex: { tr: 'kabin 3 → <mark>Kabin 3</mark> sunucu odası · 12 sunucu', en: 'rack 3 → <mark>Rack 3</mark> server room · 12 servers', de: 'rack 3 → <mark>Rack 3</mark> Serverraum · 12 Server', zh: '机柜 3 → <mark>机柜 3</mark> 机房 · 12 台服务器', ru: 'стойка 3 → <mark>Стойка 3</mark> серверная · 12 серверов' }, k: 'excel word powerpoint pdf metin satır hücre paragraf xlsx docx pptx tam ifade kelime text line cell exact phrase' },
+  { id: 'ocr', ic: 'i-ocr', t: 'Taranmış belgelerde OCR', d: 'c2', k: 'ocr tarama taranmış resim jpg png tiff fotoğraf görsel scan image photo' },
+  { id: 'ad', ic: 'i-name', t: 'Dosya ve klasör adında arama', d: 'c3', ex: { tr: 'rapor_202* → rapor_202<mark>5</mark>.xlsx · rapor_202<mark>6</mark>.docx', en: 'report_202* → report_202<mark>5</mark>.xlsx · report_202<mark>6</mark>.docx', de: 'bericht_202* → bericht_202<mark>5</mark>.xlsx · bericht_202<mark>6</mark>.docx', zh: '报告_202* → 报告_202<mark>5</mark>.xlsx · 报告_202<mark>6</mark>.docx', ru: 'отчёт_202* → отчёт_202<mark>5</mark>.xlsx · отчёт_202<mark>6</mark>.docx' }, k: 'dosya adı klasör adı joker yıldız wildcard isim ad arama name folder' },
+  { id: 'secenek', ic: 'i-opts', t: 'Harf duyarsız, isterseniz hassas', d: 'c4', k: 'harf büyük küçük duyarlı tam kelime düzenli ifade regex enter yazarken case whole word regular expression' },
+  { id: 'gorunum', ic: 'i-table', t: 'Hiyerarşi ya da liste, sizin tablonuz', d: 'c5', k: 'hiyerarşi liste görünüm sütun tablo süzgeç filtre genişlik sığdır sırala column table filter view' },
+  { id: 'disa', ic: 'i-export', t: 'Excel ya da CSV olarak dışa aktarın', d: 'c6', k: 'dışa aktar export excel xlsx csv kaydet save' },
+  { id: 'onizleme', ic: 'i-eye', t: 'Yerinde önizleme', d: 'c7', k: 'önizleme preview sekme kopyala düzenleyicide aç yol tab copy editor' },
+  { id: 'analiz', ic: 'i-map', t: 'Klasör Analizi', d: 'c8', k: 'klasör analizi harita yinelenen kopya büyük dosya eski geri dönüşüm temizlik disk alan duplicate large folder analysis map recycle' },
+  { id: 'izleme', ic: 'i-watch', t: 'Değişiklikler kendiliğinden', d: 'c9', k: 'izleme watch otomatik değişiklik güncel yeniden tara change automatic' },
+  { id: 'hiz', ic: 'i-zap', t: 'Milyonlarca satırda milisaniyeler', d: 'c10', k: 'hız performans hızlı indeks bellek çekirdek speed fast index memory' },
+  { id: 'gizlilik', ic: 'i-lock', t: 'Her şey bilgisayarınızda', d: 'c11', k: 'gizlilik güvenlik yerel internet çevrimdışı veri hesap privacy local offline' },
+  { id: 'dil', ic: 'i-lang', t: 'Beş dil, klavyeyle', d: 'c12', k: 'dil türkçe ingilizce almanca çince rusça klavye kısayol language keyboard shortcut' },
+];
+const TYPES = [
+  ['Ofis', '#2E7D4A', ['xlsx', 'xlsm', 'docx', 'docm', 'pptx', 'rtf', 'odt', 'ods', 'odp']],
+  ['PDF ve e-kitap', '#B23B3B', ['pdf', 'epub']],
+  ['Veri', '#8A6414', ['csv', 'tsv', 'json', 'xml', 'yaml', 'toml', 'ini', 'sql']],
+  ['Kod', '#4E5D6C', ['go', 'py', 'js', 'ts', 'java', 'cs', 'c', 'cpp', 'ps1', 'bat', 'sh']],
+  ['Web ve metin', '#1B5C99', ['txt', 'log', 'md', 'html', 'css', 'conf', 'cfg']],
+  ['E-posta ve kişi', '#6B4FA0', ['eml', 'msg', 'vcf']],
+  ['Görsel (OCR)', '#C06A1F', ['jpg', 'png', 'tif', 'bmp', 'gif', 'webp']],
+];
+
+// ---------- the hero: the app's window drawn in SVG, two scenes in turn ----------
+// per language: the content search (query, rows, the Excel sheet in the preview) and the name search (query, names, the document in the preview)
+const SC = {
+  tr: { q1: 'kabin', sum1: '1.058 dosya · 12.478 eşleşme · 41 ms', rows1: [['xlsx', 'envanter-2026.xlsx', 'Konum: ', 'Kabin', ' 3 · DB-01 · 2U', '366 KB'], ['docx', 'bakim-raporu.docx', '…soğutma hattı ', 'kabin', ' arkasından', '1,2 MB'], ['pdf', 'yerlesim-plani.pdf', 'Sayfa 4 · ', 'KABİN', ' A-12 güç', '4,8 MB'], ['xlsx', 'envanter-2026.xlsx', 'Konum: ', 'Kabin', ' 7 · APP-04 · 1U', '366 KB'], ['txt', 'switch-notlar.txt', 'uplink ', 'kabin', ' 3 → 7 (fiber)', '12 KB'], ['docx', 'bakim-raporu.docx', 'Tablo 2 · ', 'Kabin', ': 5 · 24 °C', '1,2 MB'], ['pdf', 'yerlesim-plani.pdf', 'Sayfa 9 · ', 'kabin', ' kapıları kilitli', '4,8 MB']],
+    sheet: 'envanter-2026.xlsx', path: 'D:\\Belgeler\\Sistem\\', tabs: ['Sunucular', 'Ağ', 'Depolama'], head: ['Konum', 'Sunucu', 'Boyut', 'Durum'], m: 'Kabin', cells: [['Kabin 2', 'WEB-02', '1U', 'Aktif'], ['Kabin 3', 'DB-01', '2U', 'Aktif'], ['Kabin 3', 'DB-02', '2U', 'Yedek'], ['Kabin 5', 'APP-01', '1U', 'Aktif'], ['Kabin 7', 'APP-04', '1U', 'Aktif'], ['Kabin 7', 'SAN-01', '4U', 'Bakımda'], ['Kabin 9', 'FW-01', '1U', 'Aktif'], ['Kabin 12', 'NAS-02', '2U', 'Aktif']],
+    q2: 'rapor*', sum2: '28 dosya · 3 klasör · 6 ms', names: [[1, 'Raporlar', '1,8 GB'], [1, 'Rapor-arsiv', '640 MB'], ['docx', 'rapor-2026-ekim.docx', '1,2 MB'], ['xlsx', 'rapor_satis_q3.xlsx', '2,4 MB'], ['pdf', 'raporlama-kilavuzu.pdf', '8,1 MB'], ['pdf', 'rapor9-denetim.pdf', '3,3 MB'], ['txt', 'raporx-notlar.txt', '4 KB']],
+    doc: 'rapor-2026-ekim.docx', dpath: 'D:\\Belgeler\\Raporlar\\', lines: ['EKİM 2026 AYLIK RAPORU', '', '1. Özet', 'Bu ay 12 sunucu bakımdan', 'geçirildi, 3 kabin yeniden', 'düzenlendi.', '', '2. Envanter değişiklikleri'] },
+  en: { q1: 'rack', sum1: '1,058 files · 12,478 matches · 41 ms', rows1: [['xlsx', 'inventory-2026.xlsx', 'Location: ', 'Rack', ' 3 · DB-01 · 2U', '366 KB'], ['docx', 'maintenance-report.docx', '…cooling line behind ', 'rack', ' 3', '1.2 MB'], ['pdf', 'floor-plan.pdf', 'Page 4 · ', 'RACK', ' A-12 power', '4.8 MB'], ['xlsx', 'inventory-2026.xlsx', 'Location: ', 'Rack', ' 7 · APP-04 · 1U', '366 KB'], ['txt', 'switch-notes.txt', 'uplink ', 'rack', ' 3 → 7 (fiber)', '12 KB'], ['docx', 'maintenance-report.docx', 'Table 2 · ', 'Rack', ': 5 · 24 °C', '1.2 MB'], ['pdf', 'floor-plan.pdf', 'Page 9 · ', 'rack', ' doors locked', '4.8 MB']],
+    sheet: 'inventory-2026.xlsx', path: 'D:\\Documents\\Systems\\', tabs: ['Servers', 'Network', 'Storage'], head: ['Location', 'Server', 'Size', 'Status'], m: 'Rack', cells: [['Rack 2', 'WEB-02', '1U', 'Active'], ['Rack 3', 'DB-01', '2U', 'Active'], ['Rack 3', 'DB-02', '2U', 'Spare'], ['Rack 5', 'APP-01', '1U', 'Active'], ['Rack 7', 'APP-04', '1U', 'Active'], ['Rack 7', 'SAN-01', '4U', 'Service'], ['Rack 9', 'FW-01', '1U', 'Active'], ['Rack 12', 'NAS-02', '2U', 'Active']],
+    q2: 'report*', sum2: '28 files · 3 folders · 6 ms', names: [[1, 'Reports', '1.8 GB'], [1, 'Report-archive', '640 MB'], ['docx', 'report-2026-oct.docx', '1.2 MB'], ['xlsx', 'report_sales_q3.xlsx', '2.4 MB'], ['pdf', 'reporting-guide.pdf', '8.1 MB'], ['pdf', 'report9-audit.pdf', '3.3 MB'], ['txt', 'reportx-notes.txt', '4 KB']],
+    doc: 'report-2026-oct.docx', dpath: 'D:\\Documents\\Reports\\', lines: ['OCTOBER 2026 MONTHLY REPORT', '', '1. Summary', '12 servers were serviced', 'this month, 3 racks were', 'rearranged.', '', '2. Inventory changes'] },
+  de: { q1: 'rack', sum1: '1.058 Dateien · 12.478 Treffer · 41 ms', rows1: [['xlsx', 'inventar-2026.xlsx', 'Standort: ', 'Rack', ' 3 · DB-01 · 2U', '366 KB'], ['docx', 'wartungsbericht.docx', '…Kühlleitung hinter ', 'Rack', ' 3', '1,2 MB'], ['pdf', 'raumplan.pdf', 'Seite 4 · ', 'RACK', ' A-12 Strom', '4,8 MB'], ['xlsx', 'inventar-2026.xlsx', 'Standort: ', 'Rack', ' 7 · APP-04 · 1U', '366 KB'], ['txt', 'switch-notizen.txt', 'Uplink ', 'Rack', ' 3 → 7 (Glasfaser)', '12 KB'], ['docx', 'wartungsbericht.docx', 'Tabelle 2 · ', 'Rack', ': 5 · 24 °C', '1,2 MB'], ['pdf', 'raumplan.pdf', 'Seite 9 · ', 'Rack', ' Türen verschlossen', '4,8 MB']],
+    sheet: 'inventar-2026.xlsx', path: 'D:\\Dokumente\\Systeme\\', tabs: ['Server', 'Netz', 'Speicher'], head: ['Standort', 'Server', 'Größe', 'Status'], m: 'Rack', cells: [['Rack 2', 'WEB-02', '1U', 'Aktiv'], ['Rack 3', 'DB-01', '2U', 'Aktiv'], ['Rack 3', 'DB-02', '2U', 'Reserve'], ['Rack 5', 'APP-01', '1U', 'Aktiv'], ['Rack 7', 'APP-04', '1U', 'Aktiv'], ['Rack 7', 'SAN-01', '4U', 'Wartung'], ['Rack 9', 'FW-01', '1U', 'Aktiv'], ['Rack 12', 'NAS-02', '2U', 'Aktiv']],
+    q2: 'bericht*', sum2: '28 Dateien · 3 Ordner · 6 ms', names: [[1, 'Berichte', '1,8 GB'], [1, 'Bericht-Archiv', '640 MB'], ['docx', 'bericht-2026-okt.docx', '1,2 MB'], ['xlsx', 'bericht_umsatz_q3.xlsx', '2,4 MB'], ['pdf', 'berichtswesen-leitfaden.pdf', '8,1 MB'], ['pdf', 'bericht9-pruefung.pdf', '3,3 MB'], ['txt', 'berichtx-notizen.txt', '4 KB']],
+    doc: 'bericht-2026-okt.docx', dpath: 'D:\\Dokumente\\Berichte\\', lines: ['MONATSBERICHT OKTOBER 2026', '', '1. Zusammenfassung', '12 Server wurden gewartet,', '3 Racks wurden neu', 'geordnet.', '', '2. Inventaränderungen'] },
+  zh: { q1: '机柜', sum1: '1,058 个文件 · 12,478 处匹配 · 41 ms', rows1: [['xlsx', 'inventory-2026.xlsx', '位置：', '机柜', ' 3 · DB-01 · 2U', '366 KB'], ['docx', 'maintenance.docx', '…冷却管线在', '机柜', '后方', '1.2 MB'], ['pdf', 'floor-plan.pdf', '第4页 · ', '机柜', ' A-12 供电', '4.8 MB'], ['xlsx', 'inventory-2026.xlsx', '位置：', '机柜', ' 7 · APP-04 · 1U', '366 KB'], ['txt', 'switch-notes.txt', '上联 ', '机柜', ' 3 → 7（光纤）', '12 KB'], ['docx', 'maintenance.docx', '表2 · ', '机柜', '：5 · 24 °C', '1.2 MB'], ['pdf', 'floor-plan.pdf', '第9页 · ', '机柜', '门保持上锁', '4.8 MB']],
+    sheet: 'inventory-2026.xlsx', path: 'D:\\文档\\系统\\', tabs: ['服务器', '网络', '存储'], head: ['位置', '服务器', '尺寸', '状态'], m: '机柜', cells: [['机柜 2', 'WEB-02', '1U', '运行'], ['机柜 3', 'DB-01', '2U', '运行'], ['机柜 3', 'DB-02', '2U', '备用'], ['机柜 5', 'APP-01', '1U', '运行'], ['机柜 7', 'APP-04', '1U', '运行'], ['机柜 7', 'SAN-01', '4U', '维护'], ['机柜 9', 'FW-01', '1U', '运行'], ['机柜 12', 'NAS-02', '2U', '运行']],
+    q2: '报告*', sum2: '28 个文件 · 3 个文件夹 · 6 ms', names: [[1, '报告', '1.8 GB'], [1, '报告-归档', '640 MB'], ['docx', '报告-2026-10.docx', '1.2 MB'], ['xlsx', '报告_销售_q3.xlsx', '2.4 MB'], ['pdf', '报告编写指南.pdf', '8.1 MB'], ['pdf', '报告9-审计.pdf', '3.3 MB'], ['txt', '报告x-笔记.txt', '4 KB']],
+    doc: '报告-2026-10.docx', dpath: 'D:\\文档\\报告\\', lines: ['2026年10月月度报告', '', '1. 摘要', '本月维护了12台服务器，', '重新整理了3个机柜。', '', '2. 库存变更'] },
+  ru: { q1: 'стойка', sum1: '1 058 файлов · 12 478 совпадений · 41 мс', rows1: [['xlsx', 'inventar-2026.xlsx', 'Место: ', 'Стойка', ' 3 · DB-01 · 2U', '366 КБ'], ['docx', 'otchet-obsluzh.docx', '…линия охлаждения, ', 'стойка', ' 3', '1,2 МБ'], ['pdf', 'plan-zala.pdf', 'Стр. 4 · ', 'СТОЙКА', ' A-12 питание', '4,8 МБ'], ['xlsx', 'inventar-2026.xlsx', 'Место: ', 'Стойка', ' 7 · APP-04 · 1U', '366 КБ'], ['txt', 'switch-zametki.txt', 'аплинк ', 'стойка', ' 3 → 7 (оптика)', '12 КБ'], ['docx', 'otchet-obsluzh.docx', 'Таблица 2 · ', 'Стойка', ': 5 · 24 °C', '1,2 МБ'], ['pdf', 'plan-zala.pdf', 'Стр. 9 · ', 'стойка', ' двери заперты', '4,8 МБ']],
+    sheet: 'inventar-2026.xlsx', path: 'D:\\Документы\\Системы\\', tabs: ['Серверы', 'Сеть', 'Хранилище'], head: ['Место', 'Сервер', 'Размер', 'Статус'], m: 'Стойка', cells: [['Стойка 2', 'WEB-02', '1U', 'Активен'], ['Стойка 3', 'DB-01', '2U', 'Активен'], ['Стойка 3', 'DB-02', '2U', 'Резерв'], ['Стойка 5', 'APP-01', '1U', 'Активен'], ['Стойка 7', 'APP-04', '1U', 'Активен'], ['Стойка 7', 'SAN-01', '4U', 'Обслуж.'], ['Стойка 9', 'FW-01', '1U', 'Активен'], ['Стойка 12', 'NAS-02', '2U', 'Активен']],
+    q2: 'отчёт*', sum2: '28 файлов · 3 папки · 6 мс', names: [[1, 'Отчёты', '1,8 ГБ'], [1, 'Отчёт-архив', '640 МБ'], ['docx', 'отчёт-2026-окт.docx', '1,2 МБ'], ['xlsx', 'отчёт_продажи_q3.xlsx', '2,4 МБ'], ['pdf', 'отчётность-руководство.pdf', '8,1 МБ'], ['pdf', 'отчёт9-аудит.pdf', '3,3 МБ'], ['txt', 'отчётx-заметки.txt', '4 КБ']],
+    doc: 'отчёт-2026-окт.docx', dpath: 'D:\\Документы\\Отчёты\\', lines: ['ЕЖЕМЕСЯЧНЫЙ ОТЧЁТ, ОКТЯБРЬ 2026', '', '1. Итоги', 'За месяц обслужено 12', 'серверов, 3 стойки', 'переставлены.', '', '2. Изменения инвентаря'] },
+};
+const W = 1180, H = 700;
+const COL = { csv: ['#2E7D4A', '#E3F3E8'], txt: ['#4E5D6C', '#EDF0F3'], xlsx: ['#2E7D4A', '#E3F3E8'], docx: ['#1B5C99', '#E8F1FA'], pdf: ['#B23B3B', '#F8E1DF'] };
+const extBadge = (x, X, Y) => `<rect x="${X}" y="${Y - 9}" width="${x.length * 7.2 + 10}" height="16" rx="4" fill="${COL[x][1]}"/><text x="${X + 5}" y="${Y + 3}" class="mono" font-size="11" font-weight="600" fill="${COL[x][0]}">${x}</text>`;
+let uid = 0;
+function frame(inner) {
+  const dist = [['.pdf', 41, '#7FB4DE'], ['.xlsx', 27, '#E8C062'], ['.docx', 18, '#6CC4A4'], ['.txt', 9, '#E58F8F'], ['.csv', 3, '#A99BE8'], [T('diğer'), 2, '#5E7A94']];
+  let x = 24;
+  const bar = dist.map(([, p, c]) => { const w = 168 * p / 100, s = `<rect x="${x}" y="366" width="${w}" height="8" fill="${c}"/>`; x += w; return s; }).join('');
+  const legend = dist.map(([e, p, c], i) => `<rect x="${24 + (i % 2) * 86}" y="${384 + Math.floor(i / 2) * 16}" width="7" height="7" rx="1.5" fill="${c}"/><text x="${36 + (i % 2) * 86}" y="${391 + Math.floor(i / 2) * 16}" class="mono" font-size="9.5" font-weight="600" fill="#16222E">${esc(e)}</text><text x="${84 + (i % 2) * 86}" y="${391 + Math.floor(i / 2) * 16}" class="mono" font-size="9.5" fill="#7C8B99">%${p}</text>`).join('');
+  const stat = (k, v, i) => `<text x="24" y="${236 + i * 17}" font-size="11" fill="#4E5D6C">${esc(k)}</text><text x="192" y="${236 + i * 17}" class="mono" font-size="11" font-weight="600" text-anchor="end" fill="#16222E">${esc(v)}</text>`;
+  return `<svg viewBox="0 0 ${W} ${H}" role="img">
+  <rect width="${W}" height="${H}" fill="#F4F6F8"/>
+  <rect width="216" height="${H}" fill="#fff"/><line x1="216" y1="0" x2="216" y2="${H}" stroke="#D8DFE6"/>
+  <use href="#logo" x="16" y="18" width="38" height="34"/><text x="60" y="34" font-size="15" font-weight="700" fill="#16222E">DigSearch</text><text x="60" y="48" font-size="9" font-weight="600" letter-spacing="1" fill="#7C8B99">${T('İÇERİK ARAMA')}</text>
+  <rect x="12" y="74" width="192" height="40" rx="8" fill="#E8F1FA" stroke="#C7DCF0"/><use href="#i-search" x="24" y="85" width="18" height="18" color="#1B5C99"/><text x="50" y="100" font-size="15" font-weight="600" fill="#1B5C99">${T('Arama')}</text><rect x="172" y="84" width="20" height="20" rx="4" fill="#fff" stroke="#D8DFE6"/><text x="178" y="98" class="mono" font-size="11" fill="#4E5D6C">/</text>
+  <rect x="12" y="130" width="192" height="36" rx="8" fill="#FAFBFC" stroke="#EDF0F3"/><circle cx="29" cy="148" r="3.5" fill="#2E9E55"/><text x="38" y="152" font-size="11.5" fill="#4E5D6C">${T('İndeks güncel · 2 dk önce')}</text>
+  <rect x="12" y="180" width="192" height="258" rx="8" fill="#FAFBFC" stroke="#EDF0F3"/><text x="24" y="206" font-size="9.5" font-weight="700" letter-spacing="1" fill="#7C8B99">${T('İNDEKS')}</text>
+  ${[[T('Klasör'), '12'], [T('Alt klasör'), num(1840)], [T('Dosya'), num(38120)], [T('Satır'), '19,4 M'], [T('Toplam'), '2,3 GB'], [T('Dosya türü '), '23'], ['OCR', num(4210)]].map(([k, v], i) => stat(k, v, i)).join('')}
+  <text x="24" y="357" font-size="9" font-weight="700" letter-spacing="1" fill="#7C8B99">${T('TÜRLERE GÖRE DOSYALAR')}</text>${bar}${legend}
+  <text x="28" y="${H - 54}" font-size="12.5" font-weight="600" fill="#4E5D6C">▦ ${T('Klasör Analizi')}</text><text x="28" y="${H - 28}" font-size="12.5" font-weight="600" fill="#4E5D6C">⚙ ${T('Ayarlar')}</text>
+  ${inner}</svg>`;
+}
+function scene(s) {
+  const cw = LANG === 'zh' ? 18 : 10.2;
+  const letters = [...s.q].map((c, i) => `<text class="ch" data-t="${s.t0 + i * 0.16}" x="${296 + i * cw}" y="59" font-size="18" fill="#16222E" font-family="IBM Plex Mono, Consolas, monospace">${esc(c)}</text>`).join('');
+  const caretX = 296 + [...s.q].length * cw;
+  // chips are laid out after drawing (text widths differ by language)
+  const chips = s.chips.map((c, i) => `<g class="ap chip" data-t="${s.t1 + i * 0.08}"><rect y="90" height="26" rx="13" fill="${c[2] ? '#16222E' : '#fff'}" stroke="${c[2] ? '#16222E' : '#D8DFE6'}"/><text y="107" font-size="12" font-weight="600" fill="${c[2] ? '#fff' : '#16222E'}">${esc(c[0])}</text>${c[1] ? `<text y="107" class="mono" font-size="11.5" font-weight="600" fill="${c[2] ? '#A8B7C4' : '#1B5C99'}">${esc(c[1])}</text>` : ''}</g>`).join('');
+  const rows = s.rows.map((r, i) => { const Y = 214 + i * 30; uid++;
+    return `<g class="ap" data-t="${s.t2 + i * 0.1}"><rect x="236" y="${Y - 15}" width="604" height="30" fill="${i === s.sel ? '#E8F1FA' : i % 2 ? '#FAFBFC' : '#fff'}"/>
+      ${r.dir ? `<use href="#i-dir" x="250" y="${Y - 9}" width="16" height="16" color="#E0A21B"/>` : extBadge(r.x, 246, Y)}
+      <text x="300" y="${Y + 4}" class="mono" font-size="11" fill="#4E5D6C">${r.d}</text>
+      ${r.pre !== undefined || r.nmk ? `<rect class="mk" data-for="m${uid}" data-t="${s.t2 + i * 0.1 + 0.3}" x="0" y="${Y - 9}" width="0" height="17" rx="3" fill="#FBE6A6"/>` : ''}
+      <text x="416" y="${Y + 4}" font-size="12.5" font-weight="600" fill="#16222E">${r.nmk ? `<tspan id="m${uid}">${esc([...r.n].slice(0, r.nmk).join(''))}</tspan>${esc([...r.n].slice(r.nmk).join(''))}` : esc(r.n)}</text>
+      ${r.pre !== undefined ? `<text x="596" y="${Y + 4}" font-size="12" fill="#4E5D6C">${esc(r.pre)}<tspan id="m${uid}" font-weight="700" fill="#16222E">${esc(r.m)}</tspan>${esc(r.post)}</text>` : ''}
+      <text x="826" y="${Y + 4}" class="mono" font-size="11" text-anchor="end" fill="#7C8B99">${esc(r.sz)}</text></g>`; }).join('');
+  return `<g class="scene" data-t="${s.t0 - 0.4}" data-out="${s.end}">
+    <rect x="236" y="36" width="924" height="46" rx="10" fill="#fff" stroke="#1B5C99" stroke-width="1.5"/><use href="#i-search" x="252" y="50" width="18" height="18" color="#7C8B99"/>
+    ${letters}<rect class="caret" x="${caretX}" y="46" width="1.6" height="24" fill="#1B5C99"/>
+    <text x="1046" y="64" font-size="12" font-weight="700" fill="${s.names ? '#AEBAC5' : '#4E5D6C'}">Aa</text><text x="1076" y="64" font-size="12" font-weight="700" fill="${s.names ? '#AEBAC5' : '#4E5D6C'}">ab</text><text x="1106" y="64" class="mono" font-size="12" font-weight="700" fill="#AEBAC5">.*</text>
+    <rect x="1128" y="45" width="26" height="28" rx="5" fill="${s.names ? '#E8F1FA' : 'none'}" stroke="${s.names ? '#1B5C99' : 'none'}"/><use href="#i-file" x="1134" y="51" width="15" height="15" color="${s.names ? '#1B5C99' : '#7C8B99'}"/>
+    ${chips}
+    <rect x="236" y="130" width="604" height="${H - 150}" rx="10" fill="#fff" stroke="#D8DFE6"/>
+    <g class="ap" data-t="${s.t1}"><text x="252" y="158" font-size="12" font-weight="600" fill="#4E5D6C">${esc(s.sum)}</text><rect x="690" y="146" width="136" height="22" rx="6" fill="#fff" stroke="#D8DFE6"/><text x="702" y="161" font-size="11.5" font-weight="600" fill="#4E5D6C">${T('Görünüm: Liste')} ▾</text></g>
+    <rect x="236" y="176" width="604" height="24" fill="#FAFBFC"/><line x1="236" y1="200" x2="840" y2="200" stroke="#D8DFE6"/>
+    ${[[250, 'TÜR'], [300, 'DEĞİŞTİRME'], [416, 'DOSYA ADI'], [596, s.names ? '' : 'EŞLEŞEN METİN']].map(([x, k]) => `<text x="${x}" y="192" font-size="9.5" font-weight="700" letter-spacing=".8" fill="#7C8B99">${k ? T(k) : ''}</text>`).join('')}<text x="826" y="192" font-size="9.5" font-weight="700" letter-spacing=".8" text-anchor="end" fill="#7C8B99">${T('BOYUT')}</text>
+    ${rows}
+    <rect x="852" y="130" width="308" height="${H - 150}" rx="10" fill="#fff" stroke="#D8DFE6"/>
+    <g class="ap" data-t="${s.t3 - 0.1}"><text x="868" y="158" font-size="12.5" font-weight="700" fill="#16222E">${esc(s.pvName)}</text><text x="868" y="176" class="mono" font-size="10" fill="#7C8B99">${esc(s.pvPath)}</text><line x1="852" y1="188" x2="1160" y2="188" stroke="#EDF0F3"/></g>
+    ${s.pv}
+  </g>`;
+}
+// the Excel sheet in the preview: column letters, a bold header, cell borders, the matching cells marked, the selected row tinted, sheet tabs below
+function sheetPv(p, t3) {
+  const x0 = 858, cw = [72, 66, 44, 68], rh = 20, y0 = 204, cols = cw.map((w, i) => x0 + 20 + cw.slice(0, i).reduce((a, b) => a + b, 0));
+  let out = `<g class="ap" data-t="${t3}"><rect x="${x0}" y="${y0}" width="296" height="${rh}" fill="#F4F6F8"/>`;
+  'ABCD'.split('').forEach((c, i) => out += `<text x="${cols[i] + cw[i] / 2}" y="${y0 + 14}" text-anchor="middle" font-size="10" fill="#7C8B99">${c}</text>`);
+  out += `<rect x="${x0}" y="${y0 + rh}" width="20" height="${rh * 9}" fill="#F4F6F8"/>`;
+  for (let r = 0; r <= 8; r++) out += `<text x="${x0 + 10}" y="${y0 + rh * (r + 1) + 14}" text-anchor="middle" font-size="9.5" fill="#7C8B99">${r + 1}</text>`;
+  out += `</g>`;
+  const line = (r, cells, bold) => { const y = y0 + rh * (r + 1); uid++; const hit = !bold && cells[0].startsWith(p.m);
+    return `<g class="ap" data-t="${t3 + 0.05 * r}">${r === 2 ? `<rect x="${x0 + 20}" y="${y}" width="250" height="${rh}" fill="#E8F1FA"/>` : ''}${hit ? `<rect class="mk" data-for="m${uid}" data-t="${t3 + 0.9}" x="0" y="${y + 2}" width="0" height="${rh - 4}" rx="3" fill="#FBE6A6"/>` : ''}${cells.map((c, i) => `<text x="${cols[i] + 5}" y="${y + 14}" font-size="10.5" font-weight="${bold ? 700 : 400}" fill="#16222E">${i === 0 && hit ? `<tspan id="m${uid}">${esc(p.m)}</tspan>${esc(c.slice(p.m.length))}` : esc(c)}</text>`).join('')}<line x1="${x0}" y1="${y + rh}" x2="${x0 + 270}" y2="${y + rh}" stroke="#EDF0F3"/></g>`; };
+  out += line(0, p.head, true) + p.cells.map((c, i) => line(i + 1, c, false)).join('');
+  cols.forEach(x => out += `<line x1="${x}" y1="${y0}" x2="${x}" y2="${y0 + rh * 10}" stroke="#EDF0F3"/>`);
+  out += `<g class="ap" data-t="${t3 + 0.3}"><line x1="852" y1="${H - 56}" x2="1160" y2="${H - 56}" stroke="#D8DFE6"/>`;
+  let tx = 864;
+  p.tabs.forEach((name, i) => { const w = [...name].length * (LANG === 'zh' ? 11 : 6.6) + 18; out += `<rect x="${tx}" y="${H - 50}" width="${w}" height="22" rx="4" fill="${i ? '#F4F6F8' : '#fff'}" stroke="${i ? '#EDF0F3' : '#1B5C99'}"/><text x="${tx + w / 2}" y="${H - 35}" text-anchor="middle" font-size="10.5" font-weight="${i ? 500 : 700}" fill="${i ? '#4E5D6C' : '#1B5C99'}">${esc(name)}</text>`; tx += w + 6; });
+  return out + `</g>`;
+}
+const docPv = (lines, t3) => lines.map((l, i) => `<g class="ap" data-t="${t3 + i * 0.05}"><text x="862" y="${224 + i * 22}" class="mono" font-size="10.5" text-anchor="end" fill="#AEBAC5">${i + 1}</text>${i === 0 ? `<rect x="852" y="${210 + i * 22}" width="316" height="22" fill="#E8F1FA" opacity=".7"/>` : ''}<text x="874" y="${224 + i * 22}" class="mono" font-size="11" fill="${i === 0 ? '#16222E' : '#4E5D6C'}">${esc(l)}</text></g>`).join('');
+function scenes() {
+  const p = SC[LANG], q2 = p.q2.replace('*', '');
+  return [
+    { q: p.q1, t0: 0.6, t1: 2.0, t2: 2.3, t3: 3.4, end: 8.6, names: false, sum: p.sum1,
+      chips: [[T('Türler: Tümü')], [T('Tümü'), num(12478), 1], [T('Hiçbiri')], [T('Tersi')], ['.xlsx', num(5812)], ['.docx', num(3119)], ['.pdf', num(2512)], ['.txt', num(1035)]],
+      rows: p.rows1.map(([x, n, pre, m, post, sz]) => ({ x, d: '20.10.2026 09:14', n, pre, m, post, sz })), sel: 0,
+      pvName: p.sheet, pvPath: p.path + p.sheet + ' · ' + T('Sayfa') + ': ' + p.tabs[0], pv: sheetPv(p, 3.5) },
+    { q: p.q2, t0: 9.6, t1: 10.8, t2: 11.1, t3: 12.4, end: 17.4, names: true, sum: p.sum2,
+      chips: [[T('Türler: Tümü')], [T('Tümü'), '31', 1], [T('Hiçbiri')], [T('Tersi')], [T('Dosya adı'), '28'], [T('Klasör'), '3']],
+      rows: p.names.map(([x, n, sz]) => ({ dir: x === 1, x: x === 1 ? 'txt' : x, d: '18.10.2026 17:02', n, nmk: [...q2].length + 1, sz })), sel: 2,
+      pvName: p.doc, pvPath: p.dpath + p.doc, pv: docPv(p.lines, 12.5) },
+  ];
+}
+// after drawing: marks take the width of the text they cover, chips line up by their text widths
+function fitMarks(root) {
+  for (const r of root.querySelectorAll('.mk[data-for]')) { const t = root.querySelector('#' + r.dataset.for); if (!t) continue; try { const x = t.getStartPositionOfChar(0).x, w = t.getComputedTextLength(); r.setAttribute('x', x - 2); r.setAttribute('width', w + 4); } catch {} }
+  for (const g of root.querySelectorAll('g.scene')) { let x = 236; for (const c of g.querySelectorAll('g.chip')) { const [rect, ...ts] = c.children; let tx = x + 11; for (const t of ts) { t.setAttribute('x', tx); tx += t.getComputedTextLength() + 6; } rect.setAttribute('x', x); rect.setAttribute('width', tx - x + 5); x = tx + 13; } }
+}
+let timers = [];
+function playShot(root, items, loop) {
+  timers.forEach(clearTimeout); timers = [];
+  const run = () => {
+    items.forEach(el => el.classList.remove('in'));
+    for (const el of items) {
+      timers.push(setTimeout(() => el.classList.add('in'), el.dataset.t * 1000));
+      if (el.dataset.out) timers.push(setTimeout(() => el.classList.remove('in'), el.dataset.out * 1000));
+    }
+    timers.push(setTimeout(run, loop * 1000));
+  };
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) { items.forEach(el => el.classList.add('in')); root.querySelectorAll('.scene').forEach((s, i) => s.classList.toggle('in', i === 0)); } else run();
+}
+function drawShot() {
+  const shot = document.getElementById('shot'); uid = 0;
+  const sc = scenes();
+  shot.innerHTML = frame(sc.map(scene).join(''));
+  fitMarks(shot);
+  playShot(shot, [...shot.querySelectorAll('[data-t]')], sc[sc.length - 1].end + 0.6);
+}
+
+// ---------- typing: a word letter by letter, the matches narrowing ----------
+const TY = {
+  tr: ['ankara', ['Ankara ofisi · bütçe-2026.xlsx', 'Ankastre ürün listesi.docx', 'Antalya seyahat planı.pdf', 'Analiz raporu Q3.docx', 'Anket sonuçları.csv', 'Ankara şube envanteri.xlsx', 'Anakart siparişi.pdf', 'Ankaralı tedarikçiler.txt'], [412908, 61220, 3104, 1290, 1217, 1214]],
+  en: ['ankara', ['Ankara office · budget-2026.xlsx', 'Anchor bolts order.pdf', 'Antalya travel plan.pdf', 'Analysis report Q3.docx', 'Annual survey.csv', 'Ankara branch inventory.xlsx', 'Android build notes.txt', 'Ankara suppliers.txt'], [412908, 61220, 3104, 1290, 1217, 1214]],
+  de: ['ankara', ['Ankara Büro · Budget-2026.xlsx', 'Ankerbolzen Bestellung.pdf', 'Antalya Reiseplan.pdf', 'Analysebericht Q3.docx', 'Anfrage Kunden.csv', 'Ankara Filiale Inventar.xlsx', 'Anleitung Montage.txt', 'Ankara Lieferanten.txt'], [412908, 61220, 3104, 1290, 1217, 1214]],
+  zh: ['安卡拉', ['安卡拉办事处 · 预算-2026.xlsx', '安装说明.txt', '安全检查表.docx', '安卡拉分公司库存.xlsx', '安排会议.docx', '安卡拉供应商.txt', '安徽项目.pdf', '安卡拉差旅.pdf'], [9812, 1106, 1071]],
+  ru: ['анкара', ['Анкара офис · бюджет-2026.xlsx', 'Анкета сотрудника.pdf', 'Анталья план поездки.pdf', 'Анализ отчёт Q3.docx', 'Анонс мероприятий.csv', 'Анкара филиал инвентарь.xlsx', 'Андроид сборка.txt', 'Анкара поставщики.txt'], [412908, 61220, 3104, 1290, 1217, 1214]],
+};
+const fold = s => s.toLocaleLowerCase(LANG === 'tr' ? 'tr' : 'en').replace(/i̇/g, 'i').replace(/[ıi]/g, 'i').replace(/ş/g, 's').replace(/ğ/g, 'g').replace(/ü/g, 'u').replace(/ö/g, 'o').replace(/ç/g, 'c').replace(/ё/g, 'е');
+let tyTimers = [];
+function drawTyping() {
+  const [word, rows, counts] = TY[LANG], L = [...word].length, box = document.getElementById('typing');
+  const match = r => { const f = fold(r), w = [...fold(word)]; let k = 0; while (k < w.length && f.startsWith(w.slice(0, k + 1).join(''))) k++; return k; };
+  const cw = LANG === 'zh' ? 20 : 11.5, mono = 'IBM Plex Mono, Consolas, monospace';
+  const html = `<svg viewBox="0 0 1180 400" role="img">
+    <rect x="0" y="0" width="1180" height="400" fill="#FAFBFC" rx="12"/>
+    <rect x="24" y="24" width="520" height="48" rx="10" fill="#fff" stroke="#1B5C99" stroke-width="1.5"/><use href="#i-search" x="40" y="39" width="18" height="18" color="#7C8B99"/>
+    ${[...word].map((c, i) => `<text class="ch ty" data-k="${i + 1}" x="${66 + i * cw}" y="55" font-family="${mono}" font-size="20" fill="#16222E">${esc(c)}</text>`).join('')}
+    <rect class="caret" id="tyCaret" x="66" y="34" width="1.6" height="28" fill="#1B5C99"/>
+    <text x="560" y="44" font-size="11" font-weight="700" letter-spacing=".8" fill="#7C8B99">${esc(T('eşleşme').toUpperCase())}</text>
+    ${counts.map((n, i) => { const w = 430 * Math.log10(n) / Math.log10(counts[0]); return `<g class="ty-b" data-k="${i + 1}" style="opacity:0"><text x="560" y="${72 + i * 22}" font-family="${mono}" font-size="12" font-weight="600" fill="#16222E">${esc([...word].slice(0, i + 1).join(''))}</text><rect class="bar" x="640" y="${62 + i * 22}" width="${w}" height="14" rx="3" fill="#1B5C99" opacity="${.35 + .65 * i / (counts.length - 1)}"/><text x="${648 + w}" y="${73 + i * 22}" font-family="${mono}" font-size="11.5" fill="#4E5D6C">${num(n)}</text></g>`; }).join('')}
+    ${rows.map((r, i) => { const k = match(r), y = 104 + i * 36; return `<g class="dim" data-m="${k}"><rect x="24" y="${y - 2}" width="520" height="32" rx="6" fill="${i % 2 ? '#fff' : '#F4F6F8'}"/><use href="#i-file" x="34" y="${y + 6}" width="16" height="16" color="${r.endsWith('xlsx') || r.endsWith('csv') ? '#2E7D4A' : r.endsWith('pdf') ? '#B23B3B' : r.endsWith('docx') ? '#1B5C99' : '#4E5D6C'}"/><rect class="mk ty-m" x="58" y="${y + 6}" width="0" height="19" rx="3" fill="#FBE6A6"/><text x="60" y="${y + 20}" font-size="13.5" fill="#16222E">${[...r].map(c => `<tspan class="tc">${esc(c)}</tspan>`).join('')}</text></g>`; }).join('')}
+    <text x="24" y="388" font-size="11.5" fill="#7C8B99" id="tyNote"></text></svg>`;
+  box.innerHTML = html;
+  const svg = box.firstElementChild, letters = [...svg.querySelectorAll('.ty')], bars = [...svg.querySelectorAll('.ty-b')], dims = [...svg.querySelectorAll('.dim')], caret = svg.querySelector('#tyCaret');
+  const widths = dims.map(g => { let acc = 0; return [...g.querySelectorAll('.tc')].map(t => (acc += t.getComputedTextLength())); });
+  const step = k => {
+    letters.forEach(l => l.classList.toggle('in', +l.dataset.k <= k));
+    caret.setAttribute('x', 66 + k * cw);
+    bars.forEach(b => { const on = +b.dataset.k <= k; b.style.opacity = on ? 1 : 0; b.querySelector('.bar').classList.toggle('in', on); });
+    dims.forEach((g, i) => { const m = Math.min(+g.dataset.m, k), ok = +g.dataset.m >= k; g.classList.toggle('off', !ok); const mk = g.querySelector('.ty-m'); mk.setAttribute('width', m ? widths[i][m - 1] + 4 : 0); mk.classList.toggle('in', m > 0 && ok); g.querySelectorAll('.tc').forEach((t, j) => t.setAttribute('font-weight', j < m && ok ? 700 : 400)); });
+    svg.querySelector('#tyNote').textContent = k ? `${[...word].slice(0, k).join('')} → ${TF('{0} eşleşme · {1} ms', num(counts[k - 1]), 4 + k * 3)}` : '';
+  };
+  tyTimers.forEach(clearTimeout); tyTimers = [];
+  const run = () => { step(0); for (let k = 1; k <= L; k++) tyTimers.push(setTimeout(() => step(k), 700 + k * 900)); tyTimers.push(setTimeout(run, 700 + L * 900 + 3200)); };
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) step(L); else run();
+}
+
+// ---------- the three steps, drawn ----------
+function drawSteps() {
+  const st = (id, body) => document.getElementById(id).innerHTML = body;
+  st('st1', `<rect x="12" y="12" width="296" height="146" rx="8" fill="#fff" stroke="#D8DFE6"/>
+    <rect x="20" y="20" width="150" height="80" rx="4" fill="#1B5C99" opacity=".85"/><text x="28" y="38" font-size="11" font-weight="700" fill="#fff">${T('Belgeler')}</text><text x="28" y="54" font-size="10" fill="#D5E0EA">${TF('{0} dosya', '8.120')} · 4,1 GB</text>
+    <rect x="174" y="20" width="126" height="48" rx="4" fill="#3D7BB5" opacity=".85"/><text x="182" y="38" font-size="11" font-weight="700" fill="#fff">${T('Projeler')}</text><text x="182" y="54" font-size="10" fill="#D5E0EA">2,2 GB</text>
+    <rect x="174" y="72" width="60" height="28" rx="4" fill="#7FB4DE"/><text x="180" y="90" font-size="10" font-weight="600" fill="#14222F">${T('Fotoğraf')}</text>
+    <rect x="238" y="72" width="62" height="28" rx="4" fill="#A8C8E6"/><text x="244" y="90" font-size="10" font-weight="600" fill="#14222F">${T('Arşiv')}</text>
+    <rect x="20" y="104" width="100" height="46" rx="4" fill="#5A93C6" opacity=".85"/><text x="28" y="122" font-size="11" font-weight="700" fill="#fff">${T('Raporlar')}</text>
+    <rect x="124" y="104" width="46" height="46" rx="4" fill="#AEBAC5"/><text x="147" y="134" text-anchor="middle" font-size="9" font-weight="600" fill="#14222F">${T('Geçici')}</text><line x1="128" y1="108" x2="166" y2="146" stroke="#B23B3B" stroke-width="1.5" opacity=".6"/><line x1="166" y1="108" x2="128" y2="146" stroke="#B23B3B" stroke-width="1.5" opacity=".6"/>
+    <rect x="174" y="104" width="126" height="46" rx="4" fill="#E8F1FA" stroke="#C7DCF0"/><text x="182" y="123" font-size="10" font-weight="700" fill="#1B5C99">${T('İndekslenecek')}</text><text x="182" y="139" font-size="10" fill="#4E5D6C">${TF('{0} dosya', '9.870')} · 3,6 GB</text>
+    ${[[154, 26], [284, 26], [104, 110]].map(([x, y]) => `<rect x="${x}" y="${y}" width="10" height="10" rx="2" fill="#fff"/><path d="M${x + 2} ${y + 5}l2.5 2.5 4-5" fill="none" stroke="#1B5C99" stroke-width="1.6"/>`).join('')}<rect x="154" y="110" width="10" height="10" rx="2" fill="#fff" stroke="#B23B3B"/>`);
+  st('st2', `<rect x="12" y="12" width="296" height="146" rx="8" fill="#fff" stroke="#D8DFE6"/>
+    ${[0, 1, 2, 3].map(i => `<g><use href="#i-file" x="24" y="${22 + i * 30}" width="18" height="18" color="${['#2E7D4A', '#1B5C99', '#B23B3B', '#4E5D6C'][i]}"/><text x="46" y="${35 + i * 30}" font-size="10.5" fill="#4E5D6C">${['envanter.xlsx', 'rapor.docx', 'plan.pdf', 'notlar.txt'][i]}</text><path d="M128 ${31 + i * 30} h40" stroke="#D8DFE6" stroke-width="1.5" stroke-dasharray="3 3"><animate attributeName="stroke-dashoffset" from="12" to="0" dur="1s" repeatCount="indefinite"/></path></g>`).join('')}
+    <rect x="176" y="20" width="116" height="110" rx="6" fill="#FAFBFC" stroke="#D8DFE6"/><text x="186" y="37" font-size="9.5" font-weight="700" letter-spacing=".8" fill="#7C8B99">${T('İNDEKS')}</text>
+    ${[0, 1, 2, 3, 4].map(i => `<rect x="186" y="${46 + i * 16}" width="${[96, 72, 88, 60, 80][i]}" height="10" rx="2" fill="#1B5C99" opacity="${.35 + i * .13}"/>`).join('')}
+    <text x="24" y="150" font-size="10.5" fill="#4E5D6C">${T('8 çekirdek · 14 sn · sıkıştırılmış, bloklu')}</text>`);
+  const q = T('sunucu odası');
+  st('st3', `<rect x="12" y="12" width="296" height="146" rx="8" fill="#fff" stroke="#D8DFE6"/>
+    <rect x="22" y="20" width="276" height="26" rx="6" fill="#fff" stroke="#1B5C99"/><use href="#i-search" x="30" y="27" width="12" height="12" color="#7C8B99"/><text x="48" y="37" font-size="12" class="mono" fill="#16222E">${esc(q)}</text><rect x="${50 + [...q].length * (LANG === 'zh' ? 12 : 7.2)}" y="25" width="1.5" height="16" fill="#1B5C99"><animate attributeName="opacity" values="1;0;1" dur="1s" repeatCount="indefinite"/></rect>
+    ${[0, 1, 2, 3].map(i => `<g><rect x="22" y="${56 + i * 24}" width="170" height="22" fill="${i ? '#fff' : '#E8F1FA'}"/><rect x="28" y="${61 + i * 24}" width="24" height="12" rx="3" fill="${['#E3F3E8', '#E8F1FA', '#F8E1DF', '#EDF0F3'][i]}"/><text x="58" y="${71 + i * 24}" font-size="10" font-weight="600" fill="#16222E">${['envanter.xlsx', 'bakim.docx', 'plan.pdf', 'notlar.txt'][i]}</text><rect x="130" y="${60 + i * 24}" width="56" height="14" rx="3" fill="#FBE6A6"/><text x="133" y="${71 + i * 24}" font-size="10" font-weight="700" fill="#16222E">${esc([...q].slice(0, 9).join(''))}…</text></g>`).join('')}
+    <rect x="200" y="56" width="98" height="94" rx="6" fill="#FAFBFC" stroke="#EDF0F3"/>${[0, 1, 2, 3, 4, 5].map(i => `<rect x="208" y="${64 + i * 14}" width="${[60, 82, 70, 84, 50, 76][i]}" height="7" rx="2" fill="${i === 2 ? '#FBE6A6' : '#D8DFE6'}"/>`).join('')}
+    <text x="22" y="156" font-size="10" fill="#7C8B99">${T('4 dosya · 1.206 eşleşme · 9 ms')}</text>`);
+}
+
+// ---------- site search: cards for what matches ----------
+const hl = (s, q) => { const f = fold(s); let out = '', i = 0; for (;;) { const j = f.indexOf(q, i); if (j < 0) return out + esc(s.slice(i)); out += esc(s.slice(i, j)) + '<mark>' + esc(s.slice(j, j + q.length)) + '</mark>'; i = j + q.length; } };
+const find = document.getElementById('find'), found = document.getElementById('found'), findN = document.getElementById('findN');
+let cur = -1;
+function doFind() {
+  const q = fold(find.value.trim());
+  if (!q) { found.classList.remove('on'); findN.textContent = ''; return; }
+  const hits = F.filter(f => fold(T(f.t) + ' ' + T(f.d) + ' ' + f.k).includes(q));
+  const tp = TYPES.filter(([n, , xs]) => fold(T(n)).includes(q) || xs.some(x => x.includes(q)));
+  findN.textContent = hits.length + tp.length ? TF('{0} sonuç', hits.length + tp.length) : '';
+  found.innerHTML = (hits.map(f => `<a href="#f-${f.id}" data-go="f-${f.id}"><svg><use href="#${f.ic}"/></svg><div><small>${T('Özellik')}</small><b>${hl(T(f.t), q)}</b><span>${hl(T(f.d), q)}</span></div></a>`).join('') +
+    tp.map(([n, c, xs]) => `<a href="#turler" data-go="turler"><svg style="color:${c}"><use href="#i-types"/></svg><div><small>${T('Dosya türü')}</small><b>${hl(T(n), q)}</b><span>${xs.map(x => hl('.' + x, q)).join(' · ')}</span></div></a>`).join('')) ||
+    `<div class="none">${TF('“{0}” için sonuç yok. Deneyin: excel, ocr, joker, süzgeç, dışa aktar.', esc(find.value.trim()))}</div>`;
+  found.classList.add('on'); cur = -1;
+}
+find.addEventListener('input', doFind);
+find.addEventListener('focus', doFind);
+document.addEventListener('click', e => { if (!e.target.closest('.find')) found.classList.remove('on'); if (!e.target.closest('.lang')) document.getElementById('lang').open = false; });
+found.addEventListener('click', e => { const a = e.target.closest('[data-go]'); if (!a) return; found.classList.remove('on'); const el = document.getElementById(a.dataset.go); if (el && el.classList.contains('card')) { el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash'); } });
+find.addEventListener('keydown', e => {
+  const as = [...found.querySelectorAll('[data-go]')];
+  if (e.key === 'Escape') { find.value = ''; doFind(); find.blur(); }
+  if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); cur = (cur + (e.key === 'ArrowDown' ? 1 : -1) + as.length) % as.length; as.forEach((a, i) => a.classList.toggle('cur', i === cur)); as[cur] && as[cur].scrollIntoView({ block: 'nearest' }); }
+  if (e.key === 'Enter' && as.length) (as[Math.max(cur, 0)]).click();
+});
+
+// ---------- render everything in the chosen language ----------
+function render() {
+  document.documentElement.lang = LANG;
+  document.getElementById('langB').textContent = LANG.toUpperCase();
+  document.querySelectorAll('.lang button').forEach(b => b.classList.toggle('on', b.dataset.l === LANG));
+  document.querySelectorAll('[data-i]').forEach(el => { const v = T(el.dataset.i); if (/<\w/.test(v)) el.innerHTML = v; else el.textContent = v; });
+  document.querySelectorAll('[data-ip]').forEach(el => el.placeholder = T(el.dataset.ip));
+  document.getElementById('cards').innerHTML = F.map(f => `<article class="card" id="f-${f.id}"><div class="ic"><svg><use href="#${f.ic}"/></svg></div><h3>${T(f.t)}</h3><p>${T(f.d)}</p>${f.ex ? `<div class="ex">${f.ex[LANG]}</div>` : ''}</article>`).join('');
+  document.getElementById('types').innerHTML = TYPES.map(([n, c, xs]) => `<div class="tg" style="--tc:${c}"><b>${T(n)}</b>${xs.map(x => `<span>.${x}</span>`).join('')}</div>`).join('');
+  document.getElementById('ver').textContent = VER;
+  document.getElementById('dlWin').href = DL + 'digsearch-' + VER + '.exe'; document.getElementById('dlLin').href = DL + 'digsearch-' + VER + '-linux-amd64.tar.gz'; document.getElementById('dlMac').href = DL + 'digsearch-' + VER + '-macos-arm64.zip';
+  drawShot(); drawSteps(); drawTyping();
+  if (find.value) doFind();
+}
+document.querySelectorAll('.lang button').forEach(b => b.onclick = () => { LANG = b.dataset.l; try { localStorage.setItem('lang', LANG); } catch {} document.getElementById('lang').open = false; render(); });
+try { const l = localStorage.getItem('lang') || (navigator.language || 'tr').slice(0, 2); if (LANGS.includes(l)) LANG = l; } catch {}
+render();
+if (document.fonts) document.fonts.ready.then(() => { fitMarks(document.getElementById('shot')); drawTyping(); });
+</script>
+</body>
+</html>
