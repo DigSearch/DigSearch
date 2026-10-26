@@ -1,10 +1,10 @@
-<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@1055dc5cdb1a/assets/wordmark-dark.png"><img src="https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@1055dc5cdb1a/assets/wordmark-light.png" width="300" alt="DigSearch"></picture></p>
+<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@e2896792122f/assets/wordmark-dark.png"><img src="https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@e2896792122f/assets/wordmark-light.png" width="300" alt="DigSearch"></picture></p>
 
 <p align="center"><a href="../../README.md">Türkçe</a> &nbsp;·&nbsp; <a href="../../docs/en/README.md">English</a> &nbsp;·&nbsp; <a href="../../docs/de/README.md">Deutsch</a> &nbsp;·&nbsp; <a href="../../docs/zh/README.md">中文</a> &nbsp;·&nbsp; <b>Русский</b></p>
 
 <p align="center">Excel, Word, PowerPoint, PDF, сканы и текстовые файлы: каждая строка в тысячах файлов находится, пока вы печатаете. Работает полностью на вашем компьютере.</p>
 
-<p align="center"><img src="https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@1055dc5cdb1a/assets/screens/ru/search.svg" width="840" alt="Поиск внутри файлов"></p>
+<p align="center"><img src="https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@e2896792122f/assets/screens/ru/search.svg" width="840" alt="Поиск внутри файлов"></p>
 
 <p align="center">✓ Один файл, без установки &nbsp;·&nbsp; ✓ Без интернета, данные у вас &nbsp;·&nbsp; ✓ Windows · Linux · macOS</p>
 
@@ -22,7 +22,7 @@
 
 ### Каждая буква сужает поиск
 
-![Каждая буква сужает поиск](https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@1055dc5cdb1a/assets/screens/ru/typing.svg)
+![Каждая буква сужает поиск](https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@e2896792122f/assets/screens/ru/typing.svg)
 
 _Число совпадений сужается по мере ввода: каждая буква отсекает блоки-кандидаты._
 
@@ -44,7 +44,7 @@ _Число совпадений сужается по мере ввода: ка
 
 > отчёт_202* → отчёт_202**5**.xlsx · отчёт_202**6**.docx
 
-![Поиск по именам файлов и папок](https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@1055dc5cdb1a/assets/screens/ru/names.svg)
+![Поиск по именам файлов и папок](https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@e2896792122f/assets/screens/ru/names.svg)
 
 ### Мягко по умолчанию, точно по желанию
 
@@ -112,15 +112,15 @@ Türkçe, English, Deutsch, 中文, Русский. / — в строку пои
 
 - Apple Silicon (M1 и новее) или Intel; откройте DMG и перетащите приложение в Applications
 - Без подписи: если macOS пишет «не удаётся открыть», Системные настройки › Конфиденциальность и безопасность › Всё равно открыть, иначе в Терминале `xattr -cr /Applications/DigSearch.app`
-- Использует mutool для PDF и tesseract для OCR, если установлены
+- Чтение PDF и OCR встроены
 
 [⤓ Apple Silicon](https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-macos-arm64.dmg) &nbsp;·&nbsp; [⤓ Intel](https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-macos-amd64.dmg)
 
-**Linux** — `digsearch-1.0.0-linux-amd64 · ~26 MB`
+**Linux** — `digsearch-1.0.0-linux-amd64 · ~55 MB`
 
 - x86-64, один файл: скачайте, `chmod +x digsearch-1.0.0-linux-amd64` и запустите
 - Окно через Chrome, Chromium, Edge или Brave; иначе в браузере
-- Использует mutool для PDF и tesseract для OCR, если установлены
+- Чтение PDF и OCR встроены
 
 [⤓ Linux amd64](https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-linux-amd64)
 
