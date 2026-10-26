@@ -1,10 +1,10 @@
-<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@2f253d5dae53/assets/wordmark-dark.png"><img src="https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@2f253d5dae53/assets/wordmark-light.png" width="300" alt="DigSearch"></picture></p>
+<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@1055dc5cdb1a/assets/wordmark-dark.png"><img src="https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@1055dc5cdb1a/assets/wordmark-light.png" width="300" alt="DigSearch"></picture></p>
 
 <p align="center"><a href="../../README.md">Türkçe</a> &nbsp;·&nbsp; <a href="../../docs/en/README.md">English</a> &nbsp;·&nbsp; <a href="../../docs/de/README.md">Deutsch</a> &nbsp;·&nbsp; <a href="../../docs/zh/README.md">中文</a> &nbsp;·&nbsp; <b>Русский</b></p>
 
 <p align="center">Excel, Word, PowerPoint, PDF, сканы и текстовые файлы: каждая строка в тысячах файлов находится, пока вы печатаете. Работает полностью на вашем компьютере.</p>
 
-<p align="center"><img src="https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@2f253d5dae53/assets/screens/ru/search.svg" width="840" alt="Поиск внутри файлов"></p>
+<p align="center"><img src="https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@1055dc5cdb1a/assets/screens/ru/search.svg" width="840" alt="Поиск внутри файлов"></p>
 
 <p align="center">✓ Один файл, без установки &nbsp;·&nbsp; ✓ Без интернета, данные у вас &nbsp;·&nbsp; ✓ Windows · Linux · macOS</p>
 
@@ -22,7 +22,7 @@
 
 ### Каждая буква сужает поиск
 
-![Каждая буква сужает поиск](https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@2f253d5dae53/assets/screens/ru/typing.svg)
+![Каждая буква сужает поиск](https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@1055dc5cdb1a/assets/screens/ru/typing.svg)
 
 _Число совпадений сужается по мере ввода: каждая буква отсекает блоки-кандидаты._
 
@@ -44,7 +44,7 @@ _Число совпадений сужается по мере ввода: ка
 
 > отчёт_202* → отчёт_202**5**.xlsx · отчёт_202**6**.docx
 
-![Поиск по именам файлов и папок](https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@2f253d5dae53/assets/screens/ru/names.svg)
+![Поиск по именам файлов и папок](https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@1055dc5cdb1a/assets/screens/ru/names.svg)
 
 ### Мягко по умолчанию, точно по желанию
 

@@ -1,10 +1,10 @@
-<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@2f253d5dae53/assets/wordmark-dark.png"><img src="https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@2f253d5dae53/assets/wordmark-light.png" width="300" alt="DigSearch"></picture></p>
+<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@1055dc5cdb1a/assets/wordmark-dark.png"><img src="https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@1055dc5cdb1a/assets/wordmark-light.png" width="300" alt="DigSearch"></picture></p>
 
 <p align="center"><a href="../../README.md">Türkçe</a> &nbsp;·&nbsp; <a href="../../docs/en/README.md">English</a> &nbsp;·&nbsp; <a href="../../docs/de/README.md">Deutsch</a> &nbsp;·&nbsp; <b>中文</b> &nbsp;·&nbsp; <a href="../../docs/ru/README.md">Русский</a></p>
 
 <p align="center">Excel、Word、PowerPoint、PDF、扫描文档和文本文件：成千上万文件中的每一行，边输入边找到。完全在您的电脑上运行。</p>
 
-<p align="center"><img src="https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@2f253d5dae53/assets/screens/zh/search.svg" width="840" alt="在文件内容中搜索"></p>
+<p align="center"><img src="https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@1055dc5cdb1a/assets/screens/zh/search.svg" width="840" alt="在文件内容中搜索"></p>
 
 <p align="center">✓ 单个文件，无需安装 &nbsp;·&nbsp; ✓ 不联网，数据留在本机 &nbsp;·&nbsp; ✓ Windows · Linux · macOS</p>
 
@@ -22,7 +22,7 @@
 
 ### 每个字符都在缩小范围
 
-![每个字符都在缩小范围](https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@2f253d5dae53/assets/screens/zh/typing.svg)
+![每个字符都在缩小范围](https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@1055dc5cdb1a/assets/screens/zh/typing.svg)
 
 _输入时匹配数逐步缩小：每个字符都减少候选块。_
 
@@ -44,7 +44,7 @@ Excel 单元格、Word 段落和表格、PowerPoint 幻灯片、PDF 页面、文
 
 > 报告_202* → 报告_202**5**.xlsx · 报告_202**6**.docx
 
-![按文件和文件夹名搜索](https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@2f253d5dae53/assets/screens/zh/names.svg)
+![按文件和文件夹名搜索](https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@1055dc5cdb1a/assets/screens/zh/names.svg)
 
 ### 默认宽松，需要时精确
 

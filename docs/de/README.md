@@ -1,10 +1,10 @@
-<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@2f253d5dae53/assets/wordmark-dark.png"><img src="https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@2f253d5dae53/assets/wordmark-light.png" width="300" alt="DigSearch"></picture></p>
+<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@1055dc5cdb1a/assets/wordmark-dark.png"><img src="https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@1055dc5cdb1a/assets/wordmark-light.png" width="300" alt="DigSearch"></picture></p>
 
 <p align="center"><a href="../../README.md">Türkçe</a> &nbsp;·&nbsp; <a href="../../docs/en/README.md">English</a> &nbsp;·&nbsp; <b>Deutsch</b> &nbsp;·&nbsp; <a href="../../docs/zh/README.md">中文</a> &nbsp;·&nbsp; <a href="../../docs/ru/README.md">Русский</a></p>
 
 <p align="center">Excel, Word, PowerPoint, PDF, gescannte Dokumente und Textdateien: jede Zeile in Tausenden Dateien wird gefunden, während Sie tippen. Läuft vollständig auf Ihrem Rechner.</p>
 
-<p align="center"><img src="https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@2f253d5dae53/assets/screens/de/search.svg" width="840" alt="Im Dateiinhalt suchen"></p>
+<p align="center"><img src="https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@1055dc5cdb1a/assets/screens/de/search.svg" width="840" alt="Im Dateiinhalt suchen"></p>
 
 <p align="center">✓ Eine Datei, keine Installation &nbsp;·&nbsp; ✓ Kein Internet, Daten bleiben bei Ihnen &nbsp;·&nbsp; ✓ Windows · Linux · macOS</p>
 
@@ -22,7 +22,7 @@
 
 ### Jeder Buchstabe grenzt ein
 
-![Jeder Buchstabe grenzt ein](https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@2f253d5dae53/assets/screens/de/typing.svg)
+![Jeder Buchstabe grenzt ein](https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@1055dc5cdb1a/assets/screens/de/typing.svg)
 
 _Die Trefferzahl schrumpft beim Tippen: jeder Buchstabe reduziert die Kandidatenblöcke._
 
@@ -44,7 +44,7 @@ Ein Knopf sucht nur in Namen: ein Buchstabe genügt. * steht für ein Zeichen. O
 
 > bericht_202* → bericht_202**5**.xlsx · bericht_202**6**.docx
 
-![Suche in Datei- und Ordnernamen](https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@2f253d5dae53/assets/screens/de/names.svg)
+![Suche in Datei- und Ordnernamen](https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@1055dc5cdb1a/assets/screens/de/names.svg)
 
 ### Locker voreingestellt, genau bei Bedarf
 

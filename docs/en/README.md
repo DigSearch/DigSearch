@@ -1,10 +1,10 @@
-<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@2f253d5dae53/assets/wordmark-dark.png"><img src="https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@2f253d5dae53/assets/wordmark-light.png" width="300" alt="DigSearch"></picture></p>
+<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@1055dc5cdb1a/assets/wordmark-dark.png"><img src="https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@1055dc5cdb1a/assets/wordmark-light.png" width="300" alt="DigSearch"></picture></p>
 
 <p align="center"><a href="../../README.md">Türkçe</a> &nbsp;·&nbsp; <b>English</b> &nbsp;·&nbsp; <a href="../../docs/de/README.md">Deutsch</a> &nbsp;·&nbsp; <a href="../../docs/zh/README.md">中文</a> &nbsp;·&nbsp; <a href="../../docs/ru/README.md">Русский</a></p>
 
 <p align="center">Excel, Word, PowerPoint, PDF, scanned documents and text files: every line inside thousands of files is found as you type. Runs entirely on your computer.</p>
 
-<p align="center"><img src="https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@2f253d5dae53/assets/screens/en/search.svg" width="840" alt="Search inside files"></p>
+<p align="center"><img src="https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@1055dc5cdb1a/assets/screens/en/search.svg" width="840" alt="Search inside files"></p>
 
 <p align="center">✓ One file, no installer &nbsp;·&nbsp; ✓ No internet, data stays with you &nbsp;·&nbsp; ✓ Windows · Linux · macOS</p>
 
@@ -22,7 +22,7 @@
 
 ### Every letter narrows it down
 
-![Every letter narrows it down](https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@2f253d5dae53/assets/screens/en/typing.svg)
+![Every letter narrows it down](https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@1055dc5cdb1a/assets/screens/en/typing.svg)
 
 _The count narrows as you type: every letter cuts the candidate blocks down._
 
@@ -44,7 +44,7 @@ One button searches names only: a single letter is enough. * stands for one char
 
 > report_202* → report_202**5**.xlsx · report_202**6**.docx
 
-![Search in file and folder names](https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@2f253d5dae53/assets/screens/en/names.svg)
+![Search in file and folder names](https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@1055dc5cdb1a/assets/screens/en/names.svg)
 
 ### Relaxed by default, exact when you want
 
