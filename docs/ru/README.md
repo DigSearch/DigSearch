@@ -1,14 +1,14 @@
-<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@e36fd4012ff6/assets/wordmark-dark.png"><img src="https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@e36fd4012ff6/assets/wordmark-light.png" width="300" alt="DigSearch"></picture></p>
+<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@2f253d5dae53/assets/wordmark-dark.png"><img src="https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@2f253d5dae53/assets/wordmark-light.png" width="300" alt="DigSearch"></picture></p>
 
 <p align="center"><a href="../../README.md">Türkçe</a> &nbsp;·&nbsp; <a href="../../docs/en/README.md">English</a> &nbsp;·&nbsp; <a href="../../docs/de/README.md">Deutsch</a> &nbsp;·&nbsp; <a href="../../docs/zh/README.md">中文</a> &nbsp;·&nbsp; <b>Русский</b></p>
 
 <p align="center">Excel, Word, PowerPoint, PDF, сканы и текстовые файлы: каждая строка в тысячах файлов находится, пока вы печатаете. Работает полностью на вашем компьютере.</p>
 
-<p align="center"><img src="https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@e36fd4012ff6/assets/screens/ru/search.svg" width="840" alt="Поиск внутри файлов"></p>
+<p align="center"><img src="https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@2f253d5dae53/assets/screens/ru/search.svg" width="840" alt="Поиск внутри файлов"></p>
 
 <p align="center">✓ Один файл, без установки &nbsp;·&nbsp; ✓ Без интернета, данные у вас &nbsp;·&nbsp; ✓ Windows · Linux · macOS</p>
 
-<p align="center"><a href="https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0.exe"><b>Windows</b></a> <sub>.exe</sub> &nbsp;|&nbsp; <a href="https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-x64.msi"><b>Windows</b></a> <sub>.msi</sub> &nbsp;|&nbsp; <a href="https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-macos-arm64.zip"><b>macOS</b></a> <sub>Apple Silicon</sub> &nbsp;|&nbsp; <a href="https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-macos-amd64.zip"><b>macOS</b></a> <sub>Intel</sub> &nbsp;|&nbsp; <a href="https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-linux-amd64.tar.gz"><b>Linux</b></a> <sub>amd64</sub></p>
+<p align="center"><a href="https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0.exe"><b>Windows</b></a> <sub>.exe</sub> &nbsp;|&nbsp; <a href="https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-x64.msi"><b>Windows</b></a> <sub>.msi</sub> &nbsp;|&nbsp; <a href="https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-macos-arm64.dmg"><b>macOS</b></a> <sub>Apple Silicon</sub> &nbsp;|&nbsp; <a href="https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-macos-amd64.dmg"><b>macOS</b></a> <sub>Intel</sub> &nbsp;|&nbsp; <a href="https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-linux-amd64"><b>Linux</b></a> <sub>amd64</sub></p>
 
 | **2 500** | **14 с** | **4–50 мс** | **30+** | **5** |
 |:---:|:---:|:---:|:---:|:---:|
@@ -22,7 +22,7 @@
 
 ### Каждая буква сужает поиск
 
-![Каждая буква сужает поиск](https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@e36fd4012ff6/assets/screens/ru/typing.svg)
+![Каждая буква сужает поиск](https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@2f253d5dae53/assets/screens/ru/typing.svg)
 
 _Число совпадений сужается по мере ввода: каждая буква отсекает блоки-кандидаты._
 
@@ -44,7 +44,7 @@ _Число совпадений сужается по мере ввода: ка
 
 > отчёт_202* → отчёт_202**5**.xlsx · отчёт_202**6**.docx
 
-![Поиск по именам файлов и папок](https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@e36fd4012ff6/assets/screens/ru/names.svg)
+![Поиск по именам файлов и папок](https://cdn.jsdelivr.net/gh/DigSearch/DigSearch@2f253d5dae53/assets/screens/ru/names.svg)
 
 ### Мягко по умолчанию, точно по желанию
 
@@ -108,21 +108,21 @@ Türkçe, English, Deutsch, 中文, Русский. / — в строку пои
 
 [⤓ Скачать для Windows](https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0.exe) &nbsp;·&nbsp; [⤓ MSI](https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-x64.msi)
 
-**macOS** — `digsearch-1.0.0-macos-arm64.zip · digsearch-1.0.0-macos-amd64.zip`
+**macOS** — `digsearch-1.0.0-macos-arm64.dmg · digsearch-1.0.0-macos-amd64.dmg`
 
-- Apple Silicon (M1 и новее) или Intel
-- Без подписи: при первом запуске правый клик › Открыть
+- Apple Silicon (M1 и новее) или Intel; откройте DMG и перетащите приложение в Applications
+- Без подписи: если macOS пишет «не удаётся открыть», Системные настройки › Конфиденциальность и безопасность › Всё равно открыть, иначе в Терминале `xattr -cr /Applications/DigSearch.app`
 - Использует mutool для PDF и tesseract для OCR, если установлены
 
-[⤓ Apple Silicon](https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-macos-arm64.zip) &nbsp;·&nbsp; [⤓ Intel](https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-macos-amd64.zip)
+[⤓ Apple Silicon](https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-macos-arm64.dmg) &nbsp;·&nbsp; [⤓ Intel](https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-macos-amd64.dmg)
 
-**Linux** — `digsearch-1.0.0-linux-amd64.tar.gz · ~12 MB`
+**Linux** — `digsearch-1.0.0-linux-amd64 · ~26 MB`
 
-- x86-64, один бинарник; kur.sh добавит в меню
+- x86-64, один файл: скачайте, `chmod +x digsearch-1.0.0-linux-amd64` и запустите
 - Окно через Chrome, Chromium, Edge или Brave; иначе в браузере
 - Использует mutool для PDF и tesseract для OCR, если установлены
 
-[⤓ Linux amd64](https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-linux-amd64.tar.gz)
+[⤓ Linux amd64](https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-linux-amd64)
 
 ---
 
