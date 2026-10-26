@@ -233,13 +233,13 @@ footer { padding: 30px 0 40px; color: var(--muted); font-size: 13px; display: fl
 <div>
 <h2 data-i="DigSearch'ü indirin"></h2>
 <p data-i="dl-p"></p>
-<div class="req"><span data-i="<b>Windows</b> 10 / 11 · 64 bit"></span><span data-i="<b>Linux</b> · tar.gz"></span><span data-i="<b>macOS</b> · Apple Silicon ve Intel"></span><span><b data-i="Sürüm">Sürüm</b> <span id="ver"></span></span></div>
+<div class="req"><span data-i="<b>Windows</b> 10 / 11 · 64 bit"></span><span data-i="<b>Linux</b> · x86-64"></span><span data-i="<b>macOS</b> · Apple Silicon ve Intel"></span><span><b data-i="Sürüm">Sürüm</b> <span id="ver"></span></span></div>
 </div>
 <div class="btns">
 <a class="btn primary" id="dlWin" href="#indir"><svg><use href="#i-win"/></svg>Windows<small>.exe</small></a>
 <a class="btn" id="dlMsi" href="#indir"><svg><use href="#i-win"/></svg>Windows<small>.msi</small></a>
-<a class="btn" id="dlMac" href="#indir"><svg><use href="#i-mac"/></svg>macOS<small>.zip</small></a>
-<a class="btn" id="dlLin" href="#indir"><svg><use href="#i-linux"/></svg>Linux<small>.tar.gz</small></a>
+<a class="btn" id="dlMac" href="#indir"><svg><use href="#i-mac"/></svg>macOS<small>.dmg</small></a>
+<a class="btn" id="dlLin" href="#indir"><svg><use href="#i-linux"/></svg>Linux<small>x86-64</small></a>
 </div>
 </div>
 </div>
@@ -278,7 +278,7 @@ step3: ['Her tuşta sonuçlar yenilenir; eşleşen satır, dosya ve tür sayıla
 "DigSearch'ü indirin": ['Get DigSearch', 'DigSearch herunterladen', '下载 DigSearch', 'Скачать DigSearch'],
 'dl-p': ['Tek dosya; çalıştırın, klasörünüzü ekleyin. İndeks ve ayarlar yalnız bu bilgisayarda tutulur; kaldırdığınızda hepsi silinir.', 'One file: run it, add your folder. The index and settings stay on this computer only; uninstalling removes them all.', 'Eine Datei: starten, Ordner hinzufügen. Index und Einstellungen bleiben nur auf diesem Rechner; beim Entfernen ist alles weg.', '单个文件：运行后添加文件夹。索引和设置只保存在本机；卸载时全部删除。', 'Один файл: запустите, добавьте папку. Индекс и настройки хранятся только на этом компьютере; при удалении всё стирается.'],
 '<b>Windows</b> 10 / 11 · 64 bit': ['<b>Windows</b> 10 / 11 · 64 bit', '<b>Windows</b> 10 / 11 · 64 Bit', '<b>Windows</b> 10 / 11 · 64 位', '<b>Windows</b> 10 / 11 · 64 бит'],
-'<b>Linux</b> · tar.gz': ['<b>Linux</b> · tar.gz', '<b>Linux</b> · tar.gz', '<b>Linux</b> · tar.gz', '<b>Linux</b> · tar.gz'],
+'<b>Linux</b> · x86-64': ['<b>Linux</b> · x86-64', '<b>Linux</b> · x86-64', '<b>Linux</b> · x86-64', '<b>Linux</b> · x86-64'],
 '<b>macOS</b> · Apple Silicon ve Intel': ['<b>macOS</b> · Apple Silicon and Intel', '<b>macOS</b> · Apple Silicon und Intel', '<b>macOS</b> · Apple Silicon 与 Intel', '<b>macOS</b> · Apple Silicon и Intel'],
 'Sürüm': ['Version', 'Version', '版本', 'Версия'],
 'Özellik': ['Feature', 'Funktion', '功能', 'Возможность'],
@@ -591,7 +591,7 @@ document.querySelectorAll('[data-ip]').forEach(el => el.placeholder = T(el.datas
 document.getElementById('cards').innerHTML = F.map(f => `<article class="card" id="f-${f.id}"><div class="ic"><svg><use href="#${f.ic}"/></svg></div><h3>${T(f.t)}</h3><p>${T(f.d)}</p>${f.ex ? `<div class="ex">${f.ex[LANG]}</div>` : ''}</article>`).join('');
 document.getElementById('types').innerHTML = TYPES.map(([n, c, xs]) => `<div class="tg" style="--tc:${c}"><b>${T(n)}</b>${xs.map(x => `<span>.${x}</span>`).join('')}</div>`).join('');
 document.getElementById('ver').textContent = VER;
-document.getElementById('dlWin').href = DL + 'digsearch-' + VER + '.exe'; document.getElementById('dlMsi').href = DL + 'digsearch-' + VER + '-x64.msi'; document.getElementById('dlLin').href = DL + 'digsearch-' + VER + '-linux-amd64.tar.gz'; document.getElementById('dlMac').href = DL + 'digsearch-' + VER + '-macos-arm64.zip';
+document.getElementById('dlWin').href = DL + 'digsearch-' + VER + '.exe'; document.getElementById('dlMsi').href = DL + 'digsearch-' + VER + '-x64.msi'; document.getElementById('dlLin').href = DL + 'digsearch-' + VER + '-linux-amd64'; document.getElementById('dlMac').href = DL + 'digsearch-' + VER + '-macos-arm64.dmg';
 drawShot(); drawSteps(); drawTyping();
 if (find.value) doFind();
 }
