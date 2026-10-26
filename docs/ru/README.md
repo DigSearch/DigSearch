@@ -113,6 +113,7 @@ Türkçe, English, Deutsch, 中文, Русский. / — в строку пои
 - Apple Silicon (M1 и новее) или Intel; откройте DMG и перетащите приложение в Applications
 - Без подписи: если macOS пишет «не удаётся открыть», Системные настройки › Конфиденциальность и безопасность › Всё равно открыть, иначе в Терминале `xattr -cr /Applications/DigSearch.app`
 - Чтение PDF и OCR встроены
+- Для быстрого поиска Ctrl-Ctrl macOS один раз попросит разрешение «Универсальный доступ»
 
 [⤓ Apple Silicon](https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-macos-arm64.dmg) &nbsp;·&nbsp; [⤓ Intel](https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-macos-amd64.dmg)
 
@@ -121,6 +122,7 @@ Türkçe, English, Deutsch, 中文, Русский. / — в строку пои
 - x86-64, один файл: скачайте, `chmod +x digsearch-1.0.0-linux-amd64` и запустите
 - Окно через Chrome, Chromium, Edge или Brave; иначе в браузере
 - Чтение PDF и OCR встроены
+- Быстрый поиск Ctrl-Ctrl работает в сеансах X11 (не под Wayland)
 
 [⤓ Linux amd64](https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-linux-amd64)
 

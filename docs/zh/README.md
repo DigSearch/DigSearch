@@ -113,6 +113,7 @@ Türkçe、English、Deutsch、中文、Русский。/ 聚焦搜索框，↑
 - Apple Silicon（M1 及以后）或 Intel；打开 DMG，把应用拖到"应用程序"
 - 未签名：若 macOS 提示无法打开，请到 系统设置 › 隐私与安全性 › 仍要打开；或在终端运行 `xattr -cr /Applications/DigSearch.app`
 - 内置 PDF 读取和 OCR
+- Ctrl-Ctrl 快速搜索需要 macOS 的辅助功能权限（仅询问一次）
 
 [⤓ Apple Silicon](https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-macos-arm64.dmg) &nbsp;·&nbsp; [⤓ Intel](https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-macos-amd64.dmg)
 
@@ -121,6 +122,7 @@ Türkçe、English、Deutsch、中文、Русский。/ 聚焦搜索框，↑
 - x86-64，单个文件：下载后执行 `chmod +x digsearch-1.0.0-linux-amd64` 再运行
 - 窗口使用 Chrome、Chromium、Edge 或 Brave；否则在浏览器中打开
 - 内置 PDF 读取和 OCR
+- Ctrl-Ctrl 快速搜索在 X11 会话中可用（Wayland 下不可用）
 
 [⤓ Linux amd64](https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-linux-amd64)
 

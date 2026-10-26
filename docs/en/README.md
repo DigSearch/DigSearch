@@ -113,6 +113,7 @@ Version 1.0.0 · One file: download and run. The index and settings stay on this
 - Apple Silicon (M1 and later) or Intel; open the DMG and drag the app to Applications
 - Unsigned: if macOS says it cannot be opened, use System Settings › Privacy & Security › Open Anyway, or run `xattr -cr /Applications/DigSearch.app` in Terminal
 - PDF reading and OCR built in
+- For the Ctrl-Ctrl quick search macOS asks once for Accessibility permission
 
 [⤓ Apple Silicon](https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-macos-arm64.dmg) &nbsp;·&nbsp; [⤓ Intel](https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-macos-amd64.dmg)
 
@@ -121,6 +122,7 @@ Version 1.0.0 · One file: download and run. The index and settings stay on this
 - x86-64, one file: download, `chmod +x digsearch-1.0.0-linux-amd64` and run it
 - Chrome, Chromium, Edge or Brave for the window; otherwise your browser
 - PDF reading and OCR built in
+- The Ctrl-Ctrl quick search works in X11 sessions (not under Wayland)
 
 [⤓ Linux amd64](https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-linux-amd64)
 

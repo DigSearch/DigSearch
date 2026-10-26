@@ -113,6 +113,7 @@ Sürüm 1.0.0 · Tek dosya: indirin ve çalıştırın. İndeks ve ayarlar yaln�
 - Apple Silicon (M1 ve sonrası) ya da Intel; DMG'yi açıp uygulamayı Applications'a sürükleyin
 - İmzasız: macOS "açılamıyor" derse Sistem Ayarları › Gizlilik ve Güvenlik › Yine de Aç; olmazsa Terminal'de `xattr -cr /Applications/DigSearch.app`
 - PDF okuma ve OCR gömülü
+- Ctrl-Ctrl hızlı arama için macOS bir kez Erişilebilirlik izni ister
 
 [⤓ Apple Silicon](https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-macos-arm64.dmg) &nbsp;·&nbsp; [⤓ Intel](https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-macos-amd64.dmg)
 
@@ -121,6 +122,7 @@ Sürüm 1.0.0 · Tek dosya: indirin ve çalıştırın. İndeks ve ayarlar yaln�
 - x86-64, tek dosya: indirin, `chmod +x digsearch-1.0.0-linux-amd64` deyip çalıştırın
 - Pencere için Chrome, Chromium, Edge ya da Brave; yoksa tarayıcıda açılır
 - PDF okuma ve OCR gömülü
+- Ctrl-Ctrl hızlı arama X11 oturumunda çalışır (Wayland'da değil)
 
 [⤓ Linux amd64](https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-linux-amd64)
 

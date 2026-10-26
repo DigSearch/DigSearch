@@ -113,6 +113,7 @@ Version 1.0.0 · Eine Datei: herunterladen und starten. Index und Einstellungen 
 - Apple Silicon (M1 und neuer) oder Intel; DMG öffnen und die App nach Programme ziehen
 - Unsigniert: meldet macOS "kann nicht geöffnet werden", Systemeinstellungen › Datenschutz & Sicherheit › Trotzdem öffnen, sonst im Terminal `xattr -cr /Applications/DigSearch.app`
 - PDF-Lesen und OCR eingebaut
+- Für die Strg-Strg-Schnellsuche fragt macOS einmal nach der Bedienungshilfen-Berechtigung
 
 [⤓ Apple Silicon](https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-macos-arm64.dmg) &nbsp;·&nbsp; [⤓ Intel](https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-macos-amd64.dmg)
 
@@ -121,6 +122,7 @@ Version 1.0.0 · Eine Datei: herunterladen und starten. Index und Einstellungen 
 - x86-64, eine Datei: herunterladen, `chmod +x digsearch-1.0.0-linux-amd64` und starten
 - Chrome, Chromium, Edge oder Brave für das Fenster; sonst der Browser
 - PDF-Lesen und OCR eingebaut
+- Die Strg-Strg-Schnellsuche funktioniert in X11-Sitzungen (nicht unter Wayland)
 
 [⤓ Linux amd64](https://github.com/DigSearch/DigSearch/releases/download/v1.0.0/digsearch-1.0.0-linux-amd64)
 
